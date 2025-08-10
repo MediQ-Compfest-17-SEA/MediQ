@@ -1,0 +1,43 @@
+name: CI - Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [api-gateway, user-service, queue-service, institution-service, ocr-service, patient-service, frontend]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine Docker context path
+        id: get_path
+        run: |
+          if [[ ${{ matrix.service }} == 'frontend' ]]; then
+            echo "path=frontend" >> $GITHUB_OUTPUT
+          else
+            echo "path=backend/${{ matrix.service }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ steps.get_path.outputs.path }}
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/mediq-${{ matrix.service }}:${{ github.sha }}
+            ${{ github.ref == 'refs/heads/main' && format('ghcr.io/{0}/mediq-{1}:latest', github.repository_owner, matrix.service) || '' }}

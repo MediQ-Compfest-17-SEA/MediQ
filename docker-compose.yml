@@ -1,0 +1,85 @@
+version: '3.8'
+
+# Penjelasan Port:
+# Formatnya adalah 'PORT_DI_SERVER:PORT_DI_DALAM_KONTAINER'
+# Contoh: "9000:8080" berarti permintaan ke port 9000 di server Debian Anda
+# akan diteruskan ke port 8080 di dalam kontainer api_gateway.
+
+services:
+  # --- BACKEND SERVICES ---
+  api_gateway:
+    build: ./backend/api-gateway
+    ports:
+      - "9000:8080" # Port API Gateway diubah menjadi 9000
+    networks:
+      - mediq-network
+
+  user-service:
+    build: ./backend/user-service
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASS=!@M@yIB3eF0rG1V2n!
+      - DB_NAME=medidb
+    networks:
+      - mediq-network
+
+  queue-service:
+    build: ./backend/queue-service
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASS=!@M@yIB3eF0rG1V2n!
+      - DB_NAME=medidb
+      - REDIS_HOST=redis
+    networks:
+      - mediq-network
+
+  # Anda bisa menambahkan layanan lain di sini (ocr, institution, patient)
+  # dengan menyalin blok 'user-service' dan mengganti namanya.
+
+  # --- FRONTEND SERVICE ---
+  frontend:
+    build: ./frontend
+    ports:
+      - "4000:3000" # Port Frontend diubah menjadi 4000
+    networks:
+      - mediq-network
+
+  # --- INFRASTRUCTURE ---
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=!@M@yIB3eF0rG1V2n!
+      - MYSQL_DATABASE=medidb
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mediq-network
+
+  redis:
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - mediq-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mediq-network
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  mediq-network:
+    driver: bridge
