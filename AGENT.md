@@ -35,8 +35,9 @@ Navigate to each service directory and run:
 - **API Gateway** (Port 8601): Centralized HTTP entry point with advanced synchronization
 - **User Service** (Port 8602): User management, authentication, JWT tokens
 - **OCR Service** (Port 8603): KTP processing with external OCR API integration
-- **Patient Queue Service** (Port 8605): Queue management with Redis cache
 - **OCR Engine Service** (Port 8604): External OCR engine for KTP processing
+- **Patient Queue Service** (Port 8605): Queue management with Redis cache
+- **Institution Service** (Port 8606): Healthcare institution and service management
 
 ## Repository Structure (Updated)
 Each service now has its own repository with:
@@ -57,7 +58,7 @@ Root repository contains:
 - **Internal**: Service ↔ Service (Direct RabbitMQ)
 - **Message Patterns**: 'service.operation' format (e.g., 'user.create', 'queue.add-to-queue')
 - **Database**: MySQL with Prisma ORM (each service has its own schema)
-- **Message Queue**: RabbitMQ with queues: user_service_queue, ocr_service_queue, patient_queue_service_queue
+- **Message Queue**: RabbitMQ with queues: user_service_queue, ocr_service_queue, patient_queue_service_queue, institution_service_queue
 - **Cache**: Redis (Patient Queue Service)
 
 ## Authentication & Security
@@ -70,7 +71,9 @@ Root repository contains:
 - **API Gateway**: Swagger at `http://localhost:8601/api/docs`
 - **User Service**: Swagger at `http://localhost:8602/api/docs` 
 - **OCR Service**: Swagger at `http://localhost:8603/api/docs`
+- **OCR Engine Service**: Swagger at `http://localhost:8604/api/docs`
 - **Patient Queue Service**: Swagger at `http://localhost:8605/api/docs`
+- **Institution Service**: Swagger at `http://localhost:8606/api/docs`
 
 ## Testing Strategy
 - **Unit Tests**: 100% coverage requirement with mocks
