@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  ocr-engine-service:
+    build: .
+    ports:
+      - "8604:8604"
+    environment:
+      - NODE_ENV=development
+      - PORT=8604
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
+      - TENSORFLOW_MODEL_PATH=/app/models
+      - MAX_CONCURRENT_REQUESTS=5
+      - REQUEST_TIMEOUT=30000
+    depends_on:
+      - rabbitmq
+    networks:
+      - mediq-network
+    volumes:
+      - ocr_models:/app/models
+      - ocr_uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "node", "dist/health-check.js"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - mediq-network
+
+volumes:
+  ocr_models:
+  ocr_uploads:
+  rabbitmq_data:
+
+networks:
+  mediq-network:
+    driver: bridge

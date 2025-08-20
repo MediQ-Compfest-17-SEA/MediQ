@@ -38,6 +38,20 @@ Navigate to each service directory and run:
 - **Patient Queue Service** (Port 8605): Queue management with Redis cache
 - **OCR Engine Service** (Port 8604): External OCR engine for KTP processing
 
+## Repository Structure (Updated)
+Each service now has its own repository with:
+- `.github/workflows/ci-cd.yml` - Service-specific CI/CD pipeline
+- `k8s/` - Kubernetes manifests (deployment.yaml, service.yaml, configmap.yaml, hpa.yaml)
+- `Dockerfile` - Service-specific Docker configuration
+- `docker-compose.yml` - Local development setup with dependencies
+
+Root repository contains:
+- `k8s/shared/` - Shared infrastructure (MySQL, Redis, RabbitMQ, Monitoring)
+- `k8s/ingress.yaml` - Ingress configuration
+- `docker-compose.infrastructure.yml` - Shared infrastructure for development
+- `test/` - Cross-service integration tests
+- High-level documentation and deployment scripts
+
 ## Communication Patterns
 - **External**: Client → API Gateway (HTTP) → Services (RabbitMQ)
 - **Internal**: Service ↔ Service (Direct RabbitMQ)
