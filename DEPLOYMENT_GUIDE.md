@@ -19,9 +19,35 @@ MediQ backend menggunakan **containerized microservices architecture** dengan Do
 - **RabbitMQ 3.9+**: Message broker
 - **External OCR API**: KTP processing service
 
+## 🔄 **CI/CD Pipeline**
+
+### GitHub Actions Workflow
+MediQ menggunakan automated CI/CD pipeline dengan GitHub Actions untuk:
+- **Automated Testing**: Unit, integration, dan E2E tests
+- **Security Scanning**: Dependency vulnerability scanning
+- **Docker Build**: Multi-stage optimized builds
+- **Multi-Environment**: Staging (auto) dan Production (manual approval)
+- **Health Checks**: Post-deployment verification
+
+### Workflow Triggers
+- **Push to main/develop**: Auto-deployment to staging
+- **Manual dispatch**: Production deployment with approval
+- **Pull requests**: Automated testing dan validation
+
+### Environment Management
+```bash
+# Staging Environment (auto-deployment)
+ENVIRONMENT=staging
+API_URL=https://api-staging.mediq.com
+
+# Production Environment (manual approval)
+ENVIRONMENT=production  
+API_URL=https://api.mediq.com
+```
+
 ## 📦 **Service Deployment**
 
-### **1. API Gateway** (Port 3001)
+### **1. API Gateway** (Port 8601)
 ```dockerfile
 # Production Dockerfile
 FROM node:18-alpine AS builder
@@ -36,13 +62,13 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY package*.json ./
-EXPOSE 3001
+EXPOSE 8601
 CMD ["node", "dist/main.js"]
 ```
 
 **Environment Variables**:
 ```env
-PORT=3001
+PORT=8601
 RABBITMQ_URL=amqp://rabbitmq-cluster:5672
 JWT_SECRET=your-production-jwt-secret
 JWT_REFRESH_SECRET=your-production-refresh-secret
@@ -51,7 +77,7 @@ RETRY_ATTEMPTS=3
 CIRCUIT_BREAKER_THRESHOLD=5
 ```
 
-### **2. User Service** (Port 3000)
+### **2. User Service** (Port 8602)
 ```dockerfile
 FROM node:18-alpine AS builder
 WORKDIR /app
@@ -67,20 +93,20 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma ./prisma
-EXPOSE 3000
+EXPOSE 8602
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
 ```
 
 **Environment Variables**:
 ```env
-PORT=3000
+PORT=8602
 DATABASE_URL=mysql://mediq_user:password@mysql-primary:3306/mediq_users
 RABBITMQ_URL=amqp://rabbitmq-cluster:5672
 JWT_SECRET=your-production-jwt-secret
 JWT_REFRESH_SECRET=your-production-refresh-secret
 ```
 
-### **3. OCR Service** (Port 3002)  
+### **3. OCR Service** (Port 8603)  
 ```dockerfile
 FROM node:18-alpine AS builder
 WORKDIR /app
@@ -93,20 +119,20 @@ FROM node:18-alpine
 WORKDIR /app  
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
-EXPOSE 3002
+EXPOSE 8603
 CMD ["node", "dist/main.js"]
 ```
 
 **Environment Variables**:
 ```env
-PORT=3002
+PORT=8603
 RABBITMQ_URL=amqp://rabbitmq-cluster:5672
 OCR_API_URL=https://your-ocr-api.com/scan
 OCR_API_KEY=your-ocr-api-key
 UPLOAD_LIMIT=10mb
 ```
 
-### **4. Patient Queue Service** (Port 3003)
+### **4. Patient Queue Service** (Port 8605)
 ```dockerfile
 FROM node:18-alpine AS builder
 WORKDIR /app
@@ -122,13 +148,13 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules  
 COPY --from=builder /app/prisma ./prisma
-EXPOSE 3003
+EXPOSE 8605
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
 ```
 
 **Environment Variables**:
 ```env
-PORT=3003
+PORT=8605
 DATABASE_URL=mysql://mediq_queue:password@mysql-primary:3306/mediq_queue
 RABBITMQ_URL=amqp://rabbitmq-cluster:5672
 REDIS_HOST=redis-cluster
@@ -181,9 +207,9 @@ services:
   api-gateway:
     build: ./MediQ-Backend-API-Gateway
     ports:
-      - "3001:3001"
+      - "8601:8601"
     environment:
-      - PORT=3001
+      - PORT=8601
       - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq-cluster:5672
       - JWT_SECRET=${JWT_SECRET}
     depends_on:
@@ -193,9 +219,9 @@ services:
   user-service:
     build: ./MediQ-Backend-User-Service
     ports:
-      - "3000:3000"  
+      - "8602:8602"  
     environment:
-      - PORT=3000
+      - PORT=8602
       - DATABASE_URL=mysql://mediq_user:${DB_PASSWORD}@mysql-primary:3306/mediq_users
       - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq-cluster:5672
       - JWT_SECRET=${JWT_SECRET}
@@ -207,9 +233,9 @@ services:
   ocr-service:
     build: ./MediQ-Backend-OCR-Service
     ports:
-      - "3002:3002"
+      - "8603:8603"
     environment:
-      - PORT=3002
+      - PORT=8603
       - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq-cluster:5672
       - OCR_API_URL=${OCR_API_URL}
     depends_on:
@@ -219,9 +245,9 @@ services:
   queue-service:
     build: ./MediQ-Backend-Patient-Queue-Service  
     ports:
-      - "3003:3003"
+      - "8605:8605"
     environment:
-      - PORT=3003
+      - PORT=8605
       - DATABASE_URL=mysql://mediq_queue:${DB_PASSWORD}@mysql-primary:3306/mediq_queue
       - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq-cluster:5672
       - REDIS_HOST=redis-cluster
@@ -440,32 +466,195 @@ docker restart mediq_redis
 echo "✅ Restore completed from: $BACKUP_DIR"
 ```
 
-## 📈 **Scaling Strategy**
+## ⚓ **Kubernetes Deployment**
 
-### Horizontal Scaling
+### Complete Kubernetes Manifests
 ```yaml
-# Kubernetes deployment example
+# k8s/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mediq-production
+---
+# k8s/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mediq-config
+  namespace: mediq-production
+data:
+  RABBITMQ_URL: "amqp://mediq:password@rabbitmq:5672"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+---
+# k8s/api-gateway-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-gateway
+  namespace: mediq-production
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: api-gateway
   template:
+    metadata:
+      labels:
+        app: api-gateway
     spec:
       containers:
       - name: api-gateway
         image: mediq/api-gateway:latest
+        ports:
+        - containerPort: 8601
+        env:
+        - name: PORT
+          value: "8601"
+        - name: RABBITMQ_URL
+          valueFrom:
+            configMapKeyRef:
+              name: mediq-config
+              key: RABBITMQ_URL
         resources:
           requests:
             memory: "512Mi"
             cpu: "250m"
           limits:
-            memory: "1Gi"  
+            memory: "1Gi"
             cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8601
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8601
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+# k8s/api-gateway-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: mediq-production
+spec:
+  selector:
+    app: api-gateway
+  ports:
+  - port: 80
+    targetPort: 8601
+  type: LoadBalancer
+```
+
+### Helm Deployment
+```bash
+# Deploy with Helm
+helm install mediq ./k8s/helm/ \
+  --namespace mediq-production \
+  --create-namespace \
+  --values ./k8s/helm/values-production.yaml
+
+# Upgrade services
+helm upgrade mediq ./k8s/helm/ \
+  --namespace mediq-production \
+  --values ./k8s/helm/values-production.yaml
+
+# Rollback if needed
+helm rollback mediq 1 --namespace mediq-production
+```
+
+### Service Mesh (Istio)
+```yaml
+# k8s/istio-gateway.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: mediq-gateway
+  namespace: mediq-production
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: mediq-tls-cert
+    hosts:
+    - api.mediq.com
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: mediq-api
+  namespace: mediq-production
+spec:
+  hosts:
+  - api.mediq.com
+  gateways:
+  - mediq-gateway
+  http:
+  - route:
+    - destination:
+        host: api-gateway
+        port:
+          number: 80
+```
+
+## 📈 **Scaling Strategy**
+
+### Horizontal Pod Autoscaler
+```yaml
+# k8s/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api-gateway-hpa
+  namespace: mediq-production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api-gateway
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+```
+
+### Vertical Pod Autoscaler
+```yaml
+# k8s/vpa.yaml
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: api-gateway-vpa
+  namespace: mediq-production
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api-gateway
+  updatePolicy:
+    updateMode: "Auto"
 ```
 
 ### Load Balancing

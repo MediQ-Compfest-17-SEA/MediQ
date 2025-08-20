@@ -12,11 +12,31 @@ Navigate to each service directory and run:
 - `npm run format` - Prettier formatting
 - **Single test**: `npx jest --testNamePattern="specific test name"` or `npx jest path/to/test.spec.ts`
 
+## CI/CD Commands
+- `npm run ci:test` - Run all tests in CI environment
+- `npm run ci:build` - Production build for CI/CD pipeline
+- `npm run security:check` - Security vulnerability scanning
+- `npm run docker:build` - Build Docker image
+- `npm run docker:push` - Push to container registry
+- **GitHub Actions**: Auto-triggered on push to main/develop branches
+- **Manual Deploy**: Use "Deploy All Services" workflow from Actions tab
+
+## Kubernetes Commands
+- `kubectl apply -f k8s/` - Deploy all services to cluster
+- `kubectl get pods -l app=mediq` - Check service status
+- `kubectl logs -f deployment/api-gateway` - Stream logs
+- `kubectl scale deployment/api-gateway --replicas=3` - Scale services
+- `kubectl rollout status deployment/user-service` - Check rollout status
+- `kubectl rollout undo deployment/ocr-service` - Rollback deployment
+- `helm install mediq ./k8s/helm/` - Deploy with Helm chart
+- `helm upgrade mediq ./k8s/helm/` - Upgrade services
+
 ## Service Architecture & Ports
-- **API Gateway** (Port 3001): Centralized HTTP entry point with advanced synchronization
-- **User Service** (Port 3000): User management, authentication, JWT tokens
-- **Patient Queue Service** (Port 3003): Queue management with Redis cache
-- **OCR Service** (Port 3002): KTP processing with external OCR API integration
+- **API Gateway** (Port 8601): Centralized HTTP entry point with advanced synchronization
+- **User Service** (Port 8602): User management, authentication, JWT tokens
+- **OCR Service** (Port 8603): KTP processing with external OCR API integration
+- **Patient Queue Service** (Port 8605): Queue management with Redis cache
+- **OCR Engine Service** (Port 8604): External OCR engine for KTP processing
 
 ## Communication Patterns
 - **External**: Client → API Gateway (HTTP) → Services (RabbitMQ)
@@ -33,10 +53,10 @@ Navigate to each service directory and run:
 - **API Gateway**: Circuit breaker, retry logic, idempotency, rate limiting
 
 ## API Documentation
-- **API Gateway**: Swagger at `http://localhost:3001/api/docs`
-- **User Service**: Swagger at `http://localhost:3000/api/docs` 
-- **OCR Service**: Swagger at `http://localhost:3002/api/docs`
-- **Patient Queue Service**: Swagger at `http://localhost:3003/api/docs`
+- **API Gateway**: Swagger at `http://localhost:8601/api/docs`
+- **User Service**: Swagger at `http://localhost:8602/api/docs` 
+- **OCR Service**: Swagger at `http://localhost:8603/api/docs`
+- **Patient Queue Service**: Swagger at `http://localhost:8605/api/docs`
 
 ## Testing Strategy
 - **Unit Tests**: 100% coverage requirement with mocks

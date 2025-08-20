@@ -1,0 +1,234 @@
+name: Deploy All Services
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      services:
+        description: 'Services to deploy (comma-separated or "all")'
+        required: true
+        default: 'all'
+        type: string
+
+env:
+  SERVICES: |
+    api-gateway,MediQ-Backend-API-Gateway,mediq/api-gateway,8601
+    user-service,MediQ-Backend-User-Service,mediq/user-service,8602
+    ocr-service,MediQ-Backend-OCR-Service,mediq/ocr-service,8603
+    patient-queue-service,MediQ-Backend-Patient-Queue-Service,mediq/patient-queue-service,8605
+
+jobs:
+  prepare:
+    name: Prepare Deployment
+    runs-on: ubuntu-latest
+    outputs:
+      services-matrix: ${{ steps.prepare-matrix.outputs.services-matrix }}
+      environment: ${{ inputs.environment }}
+
+    steps:
+    - name: Prepare Services Matrix
+      id: prepare-matrix
+      run: |
+        services_input="${{ inputs.services }}"
+        
+        if [[ "$services_input" == "all" ]]; then
+          echo "services-matrix=[\"api-gateway\", \"user-service\", \"ocr-service\", \"patient-queue-service\"]" >> $GITHUB_OUTPUT
+        else
+          # Convert comma-separated list to JSON array
+          services_array="[\"$(echo "$services_input" | sed 's/,/", "/g')\"]"
+          echo "services-matrix=$services_array" >> $GITHUB_OUTPUT
+        fi
+
+  build-and-test:
+    name: Build & Test Services
+    runs-on: ubuntu-latest
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        service: ${{ fromJson(needs.prepare.outputs.services-matrix) }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get Service Info
+      id: service-info
+      run: |
+        case "${{ matrix.service }}" in
+          "api-gateway")
+            echo "path=MediQ-Backend-API-Gateway" >> $GITHUB_OUTPUT
+            echo "image=mediq/api-gateway" >> $GITHUB_OUTPUT
+            echo "port=8601" >> $GITHUB_OUTPUT
+            ;;
+          "user-service")
+            echo "path=MediQ-Backend-User-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/user-service" >> $GITHUB_OUTPUT
+            echo "port=8602" >> $GITHUB_OUTPUT
+            ;;
+          "ocr-service")
+            echo "path=MediQ-Backend-OCR-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/ocr-service" >> $GITHUB_OUTPUT
+            echo "port=8603" >> $GITHUB_OUTPUT
+            ;;
+          "patient-queue-service")
+            echo "path=MediQ-Backend-Patient-Queue-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/patient-queue-service" >> $GITHUB_OUTPUT
+            echo "port=8605" >> $GITHUB_OUTPUT
+            ;;
+        esac
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: ${{ steps.service-info.outputs.path }}/package-lock.json
+
+    - name: Install dependencies
+      run: |
+        cd ${{ steps.service-info.outputs.path }}
+        npm ci
+
+    - name: Run Tests
+      run: |
+        cd ${{ steps.service-info.outputs.path }}
+        npm run test
+
+    - name: Build Application
+      run: |
+        cd ${{ steps.service-info.outputs.path }}
+        npm run build
+
+    - name: Build Docker Image
+      uses: docker/build-push-action@v5
+      with:
+        context: ${{ steps.service-info.outputs.path }}
+        file: ${{ steps.service-info.outputs.path }}/Dockerfile
+        push: false
+        tags: ${{ steps.service-info.outputs.image }}:${{ github.sha }}
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [prepare, build-and-test]
+    if: needs.prepare.outputs.environment == 'staging'
+    environment: staging
+    strategy:
+      fail-fast: false
+      matrix:
+        service: ${{ fromJson(needs.prepare.outputs.services-matrix) }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get Service Info
+      id: service-info
+      run: |
+        case "${{ matrix.service }}" in
+          "api-gateway")
+            echo "path=MediQ-Backend-API-Gateway" >> $GITHUB_OUTPUT
+            echo "image=mediq/api-gateway" >> $GITHUB_OUTPUT
+            echo "port=8601" >> $GITHUB_OUTPUT
+            ;;
+          "user-service")
+            echo "path=MediQ-Backend-User-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/user-service" >> $GITHUB_OUTPUT
+            echo "port=8602" >> $GITHUB_OUTPUT
+            ;;
+          "ocr-service")
+            echo "path=MediQ-Backend-OCR-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/ocr-service" >> $GITHUB_OUTPUT
+            echo "port=8603" >> $GITHUB_OUTPUT
+            ;;
+          "patient-queue-service")
+            echo "path=MediQ-Backend-Patient-Queue-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/patient-queue-service" >> $GITHUB_OUTPUT
+            echo "port=8605" >> $GITHUB_OUTPUT
+            ;;
+        esac
+
+    - name: Deploy to Staging
+      run: |
+        echo "Deploying ${{ matrix.service }} to staging..."
+        echo "Image: ${{ steps.service-info.outputs.image }}:${{ github.sha }}"
+        echo "Port: ${{ steps.service-info.outputs.port }}"
+        # Add your staging deployment commands here
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [prepare, build-and-test]
+    if: needs.prepare.outputs.environment == 'production'
+    environment: 
+      name: production
+      url: https://api.mediq.id
+    strategy:
+      fail-fast: false
+      matrix:
+        service: ${{ fromJson(needs.prepare.outputs.services-matrix) }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get Service Info
+      id: service-info
+      run: |
+        case "${{ matrix.service }}" in
+          "api-gateway")
+            echo "path=MediQ-Backend-API-Gateway" >> $GITHUB_OUTPUT
+            echo "image=mediq/api-gateway" >> $GITHUB_OUTPUT
+            echo "port=8601" >> $GITHUB_OUTPUT
+            ;;
+          "user-service")
+            echo "path=MediQ-Backend-User-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/user-service" >> $GITHUB_OUTPUT
+            echo "port=8602" >> $GITHUB_OUTPUT
+            ;;
+          "ocr-service")
+            echo "path=MediQ-Backend-OCR-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/ocr-service" >> $GITHUB_OUTPUT
+            echo "port=8603" >> $GITHUB_OUTPUT
+            ;;
+          "patient-queue-service")
+            echo "path=MediQ-Backend-Patient-Queue-Service" >> $GITHUB_OUTPUT
+            echo "image=mediq/patient-queue-service" >> $GITHUB_OUTPUT
+            echo "port=8605" >> $GITHUB_OUTPUT
+            ;;
+        esac
+
+    - name: Deploy to Production
+      run: |
+        echo "Deploying ${{ matrix.service }} to production..."
+        echo "Image: ${{ steps.service-info.outputs.image }}:${{ github.sha }}"
+        echo "Port: ${{ steps.service-info.outputs.port }}"
+        # Add your production deployment commands here
+
+    - name: Health Check
+      run: |
+        echo "Running health check for ${{ matrix.service }}..."
+        # Add health check commands here
+
+  notify:
+    name: Notify Deployment Status
+    runs-on: ubuntu-latest
+    needs: [prepare, deploy-staging, deploy-production]
+    if: always()
+
+    steps:
+    - name: Deployment Summary
+      run: |
+        echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "**Environment:** ${{ needs.prepare.outputs.environment }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Services:** ${{ inputs.services }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY

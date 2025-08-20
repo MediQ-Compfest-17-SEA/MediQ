@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ocr-engine-service-config
+  labels:
+    app: ocr-engine-service
+    component: config
+data:
+  NODE_ENV: "production"
+  PORT: "8604"
+  
+  # OCR Engine Configuration
+  OCR_MODEL_PATH: "/app/models"
+  OCR_CONFIDENCE_THRESHOLD: "0.7"
+  OCR_DPI: "300"
+  
+  # Processing Configuration
+  MAX_CONCURRENT_JOBS: "3"
+  JOB_TIMEOUT: "45000"
+  PROCESSING_QUEUE_SIZE: "20"
+  
+  # Image Preprocessing
+  PREPROCESS_ENABLED: "true"
+  DENOISE_ENABLED: "true"
+  DESKEW_ENABLED: "true"
+  CONTRAST_ENHANCEMENT: "true"
+  
+  # KTP Specific Configuration
+  KTP_TEMPLATE_PATH: "/app/templates/ktp"
+  KTP_VALIDATION_ENABLED: "true"
+  KTP_FIELDS_EXTRACTION: "true"
+  
+  # File Handling
+  MAX_FILE_SIZE: "10485760"
+  SUPPORTED_FORMATS: "jpg,jpeg,png,bmp,tiff,pdf"
+  TEMP_DIR: "/tmp/ocr"
+  
+  # Performance Configuration
+  THREAD_POOL_SIZE: "4"
+  MEMORY_LIMIT: "2048"
+  GPU_ENABLED: "false"
+  
+  # Rate Limiting
+  RATE_LIMIT_WINDOW: "900000"
+  RATE_LIMIT_MAX_REQUESTS: "100"
+  
+  # Logging
+  LOG_LEVEL: "info"
+  LOG_FORMAT: "json"
+  
+  # Health Check
+  HEALTH_CHECK_INTERVAL: "30000"
+  HEALTH_CHECK_TIMEOUT: "10000"
+  
+  # Cache Configuration
+  RESULT_CACHE_ENABLED: "true"
+  RESULT_CACHE_TTL: "600000"
+  
+  # Metrics
+  METRICS_ENABLED: "true"
+  PERFORMANCE_MONITORING: "true"

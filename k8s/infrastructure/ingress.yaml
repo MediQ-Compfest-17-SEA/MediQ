@@ -1,0 +1,267 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mediq-ingress
+  labels:
+    app: mediq
+    component: ingress
+  annotations:
+    # NGINX Ingress Controller annotations
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    
+    # Rate limiting
+    nginx.ingress.kubernetes.io/rate-limit-rps: "100"
+    nginx.ingress.kubernetes.io/rate-limit-connections: "10"
+    
+    # CORS
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
+    
+    # Security headers
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+      more_set_headers "Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;";
+    
+    # Load balancing
+    nginx.ingress.kubernetes.io/upstream-hash-by: "$remote_addr"
+    nginx.ingress.kubernetes.io/session-cookie-name: "mediq-session"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "1800"
+    
+    # Timeouts
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+    
+    # Body size limit
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    
+    # Monitoring
+    nginx.ingress.kubernetes.io/enable-access-log: "true"
+    
+    # Certificate management (cert-manager)
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.mediq.com
+    - mediq.com
+    secretName: mediq-tls-secret
+  rules:
+  - host: api.mediq.com
+    http:
+      paths:
+      # API Gateway - Main entry point
+      - path: /api/v1/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway-service
+            port:
+              number: 8601
+      
+      # Direct service access (for debugging/admin)
+      - path: /services/user/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: user-service
+            port:
+              number: 8602
+      
+      - path: /services/ocr/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: ocr-service
+            port:
+              number: 8603
+      
+      - path: /services/ocr-engine/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: ocr-engine-service
+            port:
+              number: 8604
+      
+      - path: /services/queue/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: patient-queue-service
+            port:
+              number: 8605
+      
+      # Health checks and monitoring
+      - path: /health
+        pathType: Exact
+        backend:
+          service:
+            name: api-gateway-service
+            port:
+              number: 8601
+      
+      # Documentation
+      - path: /docs/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway-service
+            port:
+              number: 8601
+  
+  - host: mediq.com
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway-service
+            port:
+              number: 8601
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mediq-monitoring-ingress
+  labels:
+    app: mediq
+    component: monitoring-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - MediQ Monitoring'
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - monitoring.mediq.com
+    secretName: mediq-monitoring-tls-secret
+  rules:
+  - host: monitoring.mediq.com
+    http:
+      paths:
+      # Prometheus
+      - path: /prometheus/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-service
+            port:
+              number: 9090
+      
+      # Grafana
+      - path: /grafana/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana-service
+            port:
+              number: 3000
+      
+      # Jaeger
+      - path: /jaeger/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: jaeger-service
+            port:
+              number: 16686
+      
+      # RabbitMQ Management
+      - path: /rabbitmq/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: rabbitmq-service
+            port:
+              number: 15672
+---
+# Basic Auth Secret for monitoring endpoints
+apiVersion: v1
+kind: Secret
+metadata:
+  name: basic-auth
+  labels:
+    app: mediq
+    component: auth
+type: Opaque
+data:
+  # admin:$2y$10$example_bcrypt_hash_here (replace with actual bcrypt hash)
+  auth: YWRtaW46JDJ5JDEwJGV4YW1wbGVfYmNyeXB0X2hhc2hfaGVyZQ==
+---
+# Network Policy for ingress traffic
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mediq-ingress-network-policy
+  labels:
+    app: mediq
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: api-gateway
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8601
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: user-service
+    ports:
+    - protocol: TCP
+      port: 8602
+  - to:
+    - podSelector:
+        matchLabels:
+          app: ocr-service
+    ports:
+    - protocol: TCP
+      port: 8603
+  - to:
+    - podSelector:
+        matchLabels:
+          app: ocr-engine-service
+    ports:
+    - protocol: TCP
+      port: 8604
+  - to:
+    - podSelector:
+        matchLabels:
+          app: patient-queue-service
+    ports:
+    - protocol: TCP
+      port: 8605
+  - to:
+    - podSelector:
+        matchLabels:
+          app: rabbitmq
+    ports:
+    - protocol: TCP
+      port: 5672

@@ -1,0 +1,1 @@
+frontend-port: 3109, backend-api-gateway-port: 8601, backend-user-service-port: 8602, backend-ocr-service-port: 8603, backend-ocr-engine-service-port

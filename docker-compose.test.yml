@@ -1,0 +1,80 @@
+version: '3.8'
+name: mediq-integration-tests
+
+services:
+  # Test Infrastructure
+  mysql-test:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: testpassword
+      MYSQL_DATABASE: mediq_integration_test
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_test_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 5s
+      start_period: 30s
+
+  redis-test:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_test_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      timeout: 3s
+      retries: 5
+      interval: 5s
+
+  rabbitmq-test:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: testuser
+      RABBITMQ_DEFAULT_PASS: testpassword
+      RABBITMQ_DEFAULT_VHOST: test
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    volumes:
+      - rabbitmq_test_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "status"]
+      timeout: 30s
+      retries: 5
+      interval: 10s
+      start_period: 30s
+
+  # OCR Engine Service (for testing external API integration)
+  ocr-engine-test:
+    build:
+      context: ./e-KTP-OCR-CNN
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_ENV=testing
+      - MODEL_PATH=/app/models/ktp_ocr_model.h5
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./e-KTP-OCR-CNN/models:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      timeout: 10s
+      retries: 5
+      interval: 15s
+
+volumes:
+  mysql_test_data:
+  redis_test_data: 
+  rabbitmq_test_data:
+
+networks:
+  default:
+    driver: bridge

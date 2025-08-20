@@ -1,0 +1,464 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mediq-default-deny-all
+  labels:
+    app: mediq
+    component: network-policy
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+---
+# API Gateway Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-gateway-network-policy
+  labels:
+    app: api-gateway
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: api-gateway
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow ingress from ingress controller
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8601
+  # Allow ingress from monitoring
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 9090
+  egress:
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  # Allow communication to backend services
+  - to:
+    - podSelector:
+        matchLabels:
+          app: user-service
+    ports:
+    - protocol: TCP
+      port: 8602
+  - to:
+    - podSelector:
+        matchLabels:
+          app: ocr-service
+    ports:
+    - protocol: TCP
+      port: 8603
+  - to:
+    - podSelector:
+        matchLabels:
+          app: ocr-engine-service
+    ports:
+    - protocol: TCP
+      port: 8604
+  - to:
+    - podSelector:
+        matchLabels:
+          app: patient-queue-service
+    ports:
+    - protocol: TCP
+      port: 8605
+  # Allow communication to RabbitMQ
+  - to:
+    - podSelector:
+        matchLabels:
+          app: rabbitmq
+    ports:
+    - protocol: TCP
+      port: 5672
+---
+# User Service Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: user-service-network-policy
+  labels:
+    app: user-service
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: user-service
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow from API Gateway
+  - from:
+    - podSelector:
+        matchLabels:
+          app: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8602
+  # Allow from monitoring
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 9090
+  egress:
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  # Allow communication to MySQL
+  - to:
+    - podSelector:
+        matchLabels:
+          app: mysql
+    ports:
+    - protocol: TCP
+      port: 3306
+  # Allow communication to RabbitMQ
+  - to:
+    - podSelector:
+        matchLabels:
+          app: rabbitmq
+    ports:
+    - protocol: TCP
+      port: 5672
+---
+# OCR Service Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ocr-service-network-policy
+  labels:
+    app: ocr-service
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: ocr-service
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow from API Gateway
+  - from:
+    - podSelector:
+        matchLabels:
+          app: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8603
+  # Allow from monitoring
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 9090
+  egress:
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  # Allow communication to OCR Engine Service
+  - to:
+    - podSelector:
+        matchLabels:
+          app: ocr-engine-service
+    ports:
+    - protocol: TCP
+      port: 8604
+  # Allow communication to RabbitMQ
+  - to:
+    - podSelector:
+        matchLabels:
+          app: rabbitmq
+    ports:
+    - protocol: TCP
+      port: 5672
+  # Allow external API calls (OCR API)
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+---
+# OCR Engine Service Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ocr-engine-service-network-policy
+  labels:
+    app: ocr-engine-service
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: ocr-engine-service
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow from OCR Service
+  - from:
+    - podSelector:
+        matchLabels:
+          app: ocr-service
+    ports:
+    - protocol: TCP
+      port: 8604
+  # Allow from API Gateway
+  - from:
+    - podSelector:
+        matchLabels:
+          app: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8604
+  # Allow from monitoring
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 9090
+  egress:
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+---
+# Patient Queue Service Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: patient-queue-service-network-policy
+  labels:
+    app: patient-queue-service
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: patient-queue-service
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow from API Gateway
+  - from:
+    - podSelector:
+        matchLabels:
+          app: api-gateway
+    ports:
+    - protocol: TCP
+      port: 8605
+  # Allow from monitoring
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 9090
+  egress:
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  # Allow communication to MySQL
+  - to:
+    - podSelector:
+        matchLabels:
+          app: mysql
+    ports:
+    - protocol: TCP
+      port: 3306
+  # Allow communication to Redis
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+  # Allow communication to RabbitMQ
+  - to:
+    - podSelector:
+        matchLabels:
+          app: rabbitmq
+    ports:
+    - protocol: TCP
+      port: 5672
+---
+# Infrastructure Services Network Policies
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mysql-network-policy
+  labels:
+    app: mysql
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: mysql
+  policyTypes:
+  - Ingress
+  ingress:
+  # Allow from application services
+  - from:
+    - podSelector:
+        matchLabels:
+          app: user-service
+    - podSelector:
+        matchLabels:
+          app: patient-queue-service
+    ports:
+    - protocol: TCP
+      port: 3306
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-network-policy
+  labels:
+    app: redis
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+  policyTypes:
+  - Ingress
+  ingress:
+  # Allow from application services
+  - from:
+    - podSelector:
+        matchLabels:
+          app: patient-queue-service
+    ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: rabbitmq-network-policy
+  labels:
+    app: rabbitmq
+    component: network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: rabbitmq
+  policyTypes:
+  - Ingress
+  ingress:
+  # Allow from all application services
+  - from:
+    - podSelector:
+        matchLabels:
+          component: backend
+    ports:
+    - protocol: TCP
+      port: 5672
+  # Allow management interface from monitoring
+  - from:
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 15672
+    - protocol: TCP
+      port: 15692
+---
+# Monitoring Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: monitoring-network-policy
+  labels:
+    app: mediq
+    component: monitoring-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      component: monitoring
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow from ingress controller for monitoring dashboards
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 3000  # Grafana
+    - protocol: TCP
+      port: 9090  # Prometheus
+    - protocol: TCP
+      port: 16686 # Jaeger
+  egress:
+  # Allow scraping from all pods
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 9090
+    - protocol: TCP
+      port: 8601
+    - protocol: TCP
+      port: 8602
+    - protocol: TCP
+      port: 8603
+    - protocol: TCP
+      port: 8604
+    - protocol: TCP
+      port: 8605
+    - protocol: TCP
+      port: 15672
+    - protocol: TCP
+      port: 15692
+  # Allow DNS resolution
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53

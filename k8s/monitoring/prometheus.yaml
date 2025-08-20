@@ -1,0 +1,336 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-pvc
+  labels:
+    app: prometheus
+    component: storage
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: standard
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  labels:
+    app: prometheus
+    component: config
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+      external_labels:
+        cluster: 'mediq-k8s'
+        environment: 'production'
+    
+    rule_files:
+    - "/etc/prometheus/rules/*.yml"
+    
+    alerting:
+      alertmanagers:
+      - static_configs:
+        - targets:
+          - alertmanager:9093
+    
+    scrape_configs:
+    # Kubernetes API Server
+    - job_name: 'kubernetes-apiservers'
+      kubernetes_sd_configs:
+      - role: endpoints
+      scheme: https
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+        action: keep
+        regex: default;kubernetes;https
+    
+    # Kubernetes Nodes
+    - job_name: 'kubernetes-nodes'
+      kubernetes_sd_configs:
+      - role: node
+      scheme: https
+      tls_config:
+        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecure_skip_verify: true
+      bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+      relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+    
+    # Kubernetes Pods
+    - job_name: 'kubernetes-pods'
+      kubernetes_sd_configs:
+      - role: pod
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+      - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - source_labels: [__meta_kubernetes_namespace]
+        action: replace
+        target_label: kubernetes_namespace
+      - source_labels: [__meta_kubernetes_pod_name]
+        action: replace
+        target_label: kubernetes_pod_name
+    
+    # MediQ Services
+    - job_name: 'mediq-api-gateway'
+      static_configs:
+      - targets: ['api-gateway-service:9090']
+      scrape_interval: 10s
+      metrics_path: '/metrics'
+      relabel_configs:
+      - target_label: service
+        replacement: 'api-gateway'
+    
+    - job_name: 'mediq-user-service'
+      static_configs:
+      - targets: ['user-service:9090']
+      scrape_interval: 10s
+      metrics_path: '/metrics'
+      relabel_configs:
+      - target_label: service
+        replacement: 'user-service'
+    
+    - job_name: 'mediq-ocr-service'
+      static_configs:
+      - targets: ['ocr-service:9090']
+      scrape_interval: 10s
+      metrics_path: '/metrics'
+      relabel_configs:
+      - target_label: service
+        replacement: 'ocr-service'
+    
+    - job_name: 'mediq-ocr-engine-service'
+      static_configs:
+      - targets: ['ocr-engine-service:9090']
+      scrape_interval: 10s
+      metrics_path: '/metrics'
+      relabel_configs:
+      - target_label: service
+        replacement: 'ocr-engine-service'
+    
+    - job_name: 'mediq-patient-queue-service'
+      static_configs:
+      - targets: ['patient-queue-service:9090']
+      scrape_interval: 10s
+      metrics_path: '/metrics'
+      relabel_configs:
+      - target_label: service
+        replacement: 'patient-queue-service'
+    
+    # Infrastructure
+    - job_name: 'mysql'
+      static_configs:
+      - targets: ['mysql-service:9104']
+      scrape_interval: 30s
+    
+    - job_name: 'redis'
+      static_configs:
+      - targets: ['redis-service:9121']
+      scrape_interval: 30s
+    
+    - job_name: 'rabbitmq'
+      static_configs:
+      - targets: ['rabbitmq-service:15692']
+      scrape_interval: 30s
+  
+  alert_rules.yml: |
+    groups:
+    - name: mediq.rules
+      rules:
+      # High CPU usage
+      - alert: HighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total[5m]) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has high CPU usage: {{ $value }}%"
+      
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High memory usage detected"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has high memory usage: {{ $value }}%"
+      
+      # Pod restart
+      - alert: PodRestartingTooMuch
+        expr: rate(kube_pod_container_status_restarts_total[1h]) * 3600 > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Pod restarting too much"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is restarting too frequently"
+      
+      # Service down
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service is down"
+          description: "Service {{ $labels.job }} is down"
+      
+      # High HTTP error rate
+      - alert: HighHTTPErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100 > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High HTTP error rate"
+          description: "Service {{ $labels.service }} has high HTTP error rate: {{ $value }}%"
+      
+      # Database connection issues
+      - alert: DatabaseConnectionIssues
+        expr: mysql_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Database connection issues"
+          description: "MySQL database is not responding"
+      
+      # Redis connection issues
+      - alert: RedisConnectionIssues
+        expr: redis_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis connection issues"
+          description: "Redis cache is not responding"
+      
+      # RabbitMQ connection issues
+      - alert: RabbitMQConnectionIssues
+        expr: rabbitmq_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "RabbitMQ connection issues"
+          description: "RabbitMQ message broker is not responding"
+      
+      # Disk space usage
+      - alert: HighDiskUsage
+        expr: (node_filesystem_size_bytes - node_filesystem_free_bytes) / node_filesystem_size_bytes * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High disk usage"
+          description: "Disk usage is above 85% on {{ $labels.instance }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+  labels:
+    app: prometheus
+    component: service
+spec:
+  type: ClusterIP
+  ports:
+  - name: prometheus
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: prometheus
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+    component: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+        component: monitoring
+    spec:
+      serviceAccountName: mediq-monitoring-service-account
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v2.40.7
+        ports:
+        - containerPort: 9090
+          name: prometheus
+        args:
+        - '--config.file=/etc/prometheus/prometheus.yml'
+        - '--storage.tsdb.path=/prometheus/'
+        - '--web.console.libraries=/etc/prometheus/console_libraries'
+        - '--web.console.templates=/etc/prometheus/consoles'
+        - '--storage.tsdb.retention.time=30d'
+        - '--web.enable-lifecycle'
+        - '--web.enable-admin-api'
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 2
+            memory: 4Gi
+        volumeMounts:
+        - name: prometheus-config
+          mountPath: /etc/prometheus/
+        - name: prometheus-storage
+          mountPath: /prometheus/
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: prometheus-config
+        configMap:
+          name: prometheus-config
+      - name: prometheus-storage
+        persistentVolumeClaim:
+          claimName: prometheus-pvc

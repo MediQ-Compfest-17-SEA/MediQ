@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-service-config
+  labels:
+    app: user-service
+    component: config
+data:
+  NODE_ENV: "production"
+  PORT: "8602"
+  
+  # Database Configuration
+  DATABASE_HOST: "mysql-service"
+  DATABASE_PORT: "3306"
+  DATABASE_NAME: "mediq_user_db"
+  DATABASE_SCHEMA: "mediq_user_schema"
+  
+  # RabbitMQ Configuration
+  RABBITMQ_HOST: "rabbitmq-service"
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_VHOST: "mediq"
+  RABBITMQ_QUEUE: "user_service_queue"
+  RABBITMQ_EXCHANGE: "mediq_exchange"
+  
+  # JWT Configuration
+  JWT_EXPIRES_IN: "15m"
+  JWT_REFRESH_EXPIRES_IN: "7d"
+  
+  # BCrypt Configuration
+  BCRYPT_SALT_ROUNDS: "12"
+  
+  # Rate Limiting
+  RATE_LIMIT_WINDOW: "900000"
+  RATE_LIMIT_MAX_REQUESTS: "500"
+  
+  # Swagger Configuration
+  SWAGGER_ENABLED: "true"
+  SWAGGER_PATH: "/api/docs"
+  
+  # Prisma Configuration
+  PRISMA_LOG_LEVEL: "warn"
+  PRISMA_ERROR_FORMAT: "pretty"
+  
+  # Validation
+  VALIDATION_WHITELIST: "true"
+  VALIDATION_TRANSFORM: "true"
+  
+  # Logging
+  LOG_LEVEL: "info"
+  LOG_FORMAT: "json"
+  
+  # Session Configuration
+  SESSION_TIMEOUT: "1800000"
+  MAX_LOGIN_ATTEMPTS: "5"
+  LOCKOUT_DURATION: "1800000"

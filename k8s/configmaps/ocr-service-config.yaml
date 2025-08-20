@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ocr-service-config
+  labels:
+    app: ocr-service
+    component: config
+data:
+  NODE_ENV: "production"
+  PORT: "8603"
+  
+  # OCR Engine Configuration
+  OCR_ENGINE_URL: "http://ocr-engine-service:8604"
+  OCR_TIMEOUT: "30000"
+  OCR_MAX_RETRIES: "3"
+  
+  # File Upload Configuration
+  MAX_FILE_SIZE: "10485760"
+  ALLOWED_MIME_TYPES: "image/jpeg,image/png,image/bmp,image/tiff"
+  UPLOAD_DESTINATION: "/app/uploads"
+  
+  # Image Processing
+  IMAGE_MAX_WIDTH: "2048"
+  IMAGE_MAX_HEIGHT: "2048"
+  IMAGE_QUALITY: "85"
+  
+  # RabbitMQ Configuration
+  RABBITMQ_HOST: "rabbitmq-service"
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_VHOST: "mediq"
+  RABBITMQ_QUEUE: "ocr_service_queue"
+  RABBITMQ_EXCHANGE: "mediq_exchange"
+  
+  # Processing Configuration
+  CONCURRENT_JOBS: "5"
+  JOB_TIMEOUT: "60000"
+  BATCH_SIZE: "10"
+  
+  # Storage Configuration
+  STORAGE_TYPE: "local"
+  CLEANUP_INTERVAL: "3600000"
+  FILE_RETENTION_HOURS: "24"
+  
+  # Swagger Configuration
+  SWAGGER_ENABLED: "true"
+  SWAGGER_PATH: "/api/docs"
+  
+  # Rate Limiting
+  RATE_LIMIT_WINDOW: "900000"
+  RATE_LIMIT_MAX_REQUESTS: "200"
+  
+  # Logging
+  LOG_LEVEL: "info"
+  LOG_FORMAT: "json"
+  
+  # Health Check
+  HEALTH_CHECK_INTERVAL: "30000"
+  
+  # Cache Configuration
+  CACHE_TTL: "300000"
+  CACHE_MAX_SIZE: "1000"

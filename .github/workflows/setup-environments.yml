@@ -1,0 +1,75 @@
+name: Setup GitHub Environments
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_environments:
+        description: 'Create staging and production environments'
+        required: true
+        default: true
+        type: boolean
+
+jobs:
+  setup:
+    name: Environment Setup Instructions
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Environment Setup Instructions
+      run: |
+        echo "## GitHub Environments Setup Required" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "To complete the CI/CD setup, you need to create GitHub Environments:" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 1. Create Environments" >> $GITHUB_STEP_SUMMARY
+        echo "Go to: Repository Settings → Environments" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "Create two environments:" >> $GITHUB_STEP_SUMMARY
+        echo "- **staging**: Auto-deployment from main branch" >> $GITHUB_STEP_SUMMARY
+        echo "- **production**: Manual approval required" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 2. Required Secrets" >> $GITHUB_STEP_SUMMARY
+        echo "Add these secrets to your repository:" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Docker Hub Secrets:**" >> $GITHUB_STEP_SUMMARY
+        echo "- \`DOCKER_HUB_USERNAME\`: Your Docker Hub username" >> $GITHUB_STEP_SUMMARY
+        echo "- \`DOCKER_HUB_TOKEN\`: Docker Hub access token" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Database Secrets (for services with Prisma):**" >> $GITHUB_STEP_SUMMARY
+        echo "- \`DATABASE_URL\`: MySQL connection string" >> $GITHUB_STEP_SUMMARY
+        echo "- \`RABBITMQ_URL\`: RabbitMQ connection string" >> $GITHUB_STEP_SUMMARY
+        echo "- \`REDIS_URL\`: Redis connection string (for Patient Queue Service)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**JWT Secrets:**" >> $GITHUB_STEP_SUMMARY
+        echo "- \`JWT_SECRET\`: Secret for JWT token generation" >> $GITHUB_STEP_SUMMARY
+        echo "- \`JWT_REFRESH_SECRET\`: Secret for refresh token generation" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**OCR Service Secrets:**" >> $GITHUB_STEP_SUMMARY
+        echo "- \`OCR_API_URL\`: External OCR API endpoint" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 3. Environment Protection Rules" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**For Production Environment:**" >> $GITHUB_STEP_SUMMARY
+        echo "- Enable 'Required reviewers' (at least 1 reviewer)" >> $GITHUB_STEP_SUMMARY
+        echo "- Add deployment timeout: 30 minutes" >> $GITHUB_STEP_SUMMARY
+        echo "- Restrict to 'main' branch only" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**For Staging Environment:**" >> $GITHUB_STEP_SUMMARY
+        echo "- Restrict to 'main' branch only" >> $GITHUB_STEP_SUMMARY
+        echo "- No approval required" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 4. Port Configurations Updated" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "All services have been updated to use new ports:" >> $GITHUB_STEP_SUMMARY
+        echo "- **API Gateway**: 8601 (was 3001)" >> $GITHUB_STEP_SUMMARY
+        echo "- **User Service**: 8602 (was 3000)" >> $GITHUB_STEP_SUMMARY
+        echo "- **OCR Service**: 8603 (was 3002)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Patient Queue Service**: 8605 (was 3003)" >> $GITHUB_STEP_SUMMARY
+        echo "- **OCR Engine Service**: 8604 (new)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 5. Next Steps" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "1. Set up the required secrets and environments" >> $GITHUB_STEP_SUMMARY
+        echo "2. Push changes to main branch to trigger workflows" >> $GITHUB_STEP_SUMMARY
+        echo "3. Monitor workflow runs in the Actions tab" >> $GITHUB_STEP_SUMMARY
+        echo "4. Use 'Deploy All Services' workflow for coordinated deployments" >> $GITHUB_STEP_SUMMARY

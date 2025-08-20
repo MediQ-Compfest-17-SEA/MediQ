@@ -11,7 +11,7 @@
                                              ▼
                               ┌─────────────────────────────┐
                               │      API Gateway            │
-                              │      (Port 3001)            │
+                              │      (Port 8601)            │
                               │  • Circuit Breaker          │
                               │  • Rate Limiting            │
                               │  • Request Routing          │
@@ -22,8 +22,8 @@
                                 ▼            ▼            ▼
                     ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
                     │  User Service   │ │  OCR Service    │ │ Patient Queue   │
-                    │  (Port 3000)    │ │  (Port 3002)    │ │ Service         │
-                    │                 │ │                 │ │ (Port 3003)     │
+                    │  (Port 8602)    │ │  (Port 8603)    │ │ Service         │
+                    │                 │ │                 │ │ (Port 8605)     │
                     └─────────────────┘ └─────────────────┘ └─────────────────┘
                              │                   │                   │
                              ▼                   │                   ▼
@@ -207,9 +207,182 @@ export class UsersController {
 }
 ```
 
+## 🏗️ CI/CD Pipeline Architecture
+
+```
+                    ┌─────────────────────────────────────────────────────┐
+                    │                  Developer                          │
+                    │                (Git Push)                          │
+                    └─────────────────────────────────────────────────────┘
+                                            │
+                                            ▼
+                    ┌─────────────────────────────────────────────────────┐
+                    │               GitHub Actions                        │
+                    │                                                     │
+                    │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ │
+                    │  │    Build     │ │    Test      │ │   Security   │ │
+                    │  │   & Lint     │ │  Coverage    │ │    Scan      │ │
+                    │  └──────────────┘ └──────────────┘ └──────────────┘ │
+                    └─────────────────────────────────────────────────────┘
+                                            │
+                                            ▼
+                    ┌─────────────────────────────────────────────────────┐
+                    │              Docker Registry                        │
+                    │          (Harbor/Docker Hub)                       │
+                    │                                                     │
+                    │  mediq/api-gateway:latest                          │
+                    │  mediq/user-service:latest                         │
+                    │  mediq/ocr-service:latest                          │
+                    │  mediq/queue-service:latest                        │
+                    └─────────────────────────────────────────────────────┘
+                                            │
+                          ┌─────────────────┼─────────────────┐
+                          │                 │                 │
+                          ▼                 ▼                 ▼
+                 ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
+                 │     Staging     │ │   Production    │ │  Kubernetes     │
+                 │   (Auto-Deploy) │ │ (Manual Approval│ │    Cluster      │
+                 │                 │ │    Required)    │ │                 │
+                 └─────────────────┘ └─────────────────┘ └─────────────────┘
+```
+
+### CI/CD Workflow Stages
+
+#### 1. Continuous Integration (CI)
+- **Code Quality**: ESLint, Prettier, TypeScript compilation
+- **Testing**: Unit tests (100% coverage), Integration tests, E2E tests
+- **Security**: npm audit, Trivy vulnerability scanning
+- **Build**: Multi-stage Docker builds dengan optimization
+
+#### 2. Continuous Deployment (CD)
+- **Staging**: Auto-deployment pada push ke main branch
+- **Production**: Manual approval dengan environment protection
+- **Health Checks**: Post-deployment verification
+- **Rollback**: Automated rollback pada failure detection
+
+#### 3. Service Matrix Deployment
+```yaml
+# GitHub Actions Matrix Strategy
+strategy:
+  matrix:
+    service: 
+      - api-gateway
+      - user-service 
+      - ocr-service
+      - queue-service
+    environment:
+      - staging
+      - production
+```
+
+## ⚓ Kubernetes Architecture
+
+```
+                           ┌─────────────────────────────────────────┐
+                           │              Ingress Controller        │
+                           │               (NGINX/Traefik)          │
+                           └─────────────────────────────────────────┘
+                                           │
+                           ┌─────────────────────────────────────────┐
+                           │                Gateway                   │
+                           │            (Load Balancer)              │
+                           └─────────────────────────────────────────┘
+                                           │
+                      ┌────────────────────┼────────────────────┐
+                      │                    │                    │
+              ┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+              │  API Gateway  │    │  API Gateway  │    │  API Gateway  │
+              │   Pod (8601)  │    │   Pod (8601)  │    │   Pod (8601)  │
+              └───────────────┘    └───────────────┘    └───────────────┘
+                      │                    │                    │
+                      └────────────────────┼────────────────────┘
+                                           │
+                           ┌─────────────────────────────────────────┐
+                           │           Service Mesh (Istio)          │
+                           │          (Optional Enhancement)         │
+                           └─────────────────────────────────────────┘
+                                           │
+          ┌─────────────────────────────┬──┼──┬─────────────────────────────┐
+          │                             │     │                             │
+    ┌─────────────┐            ┌─────────────┐            ┌─────────────┐
+    │User Service │            │OCR Service  │            │Queue Service│
+    │(Port 8602)  │            │(Port 8603)  │            │(Port 8605)  │
+    │             │            │             │            │             │
+    │┌───────────┐│            │┌───────────┐│            │┌───────────┐│
+    ││ Pod 1     ││            ││ Pod 1     ││            ││ Pod 1     ││
+    │└───────────┘│            │└───────────┘│            │└───────────┘│
+    │┌───────────┐│            │┌───────────┐│            │┌───────────┐│
+    ││ Pod 2     ││            ││ Pod 2     ││            ││ Pod 2     ││
+    │└───────────┘│            │└───────────┘│            │└───────────┘│
+    └─────────────┘            └─────────────┘            └─────────────┘
+          │                             │                             │
+          ▼                             ▼                             ▼
+    ┌─────────────┐            ┌─────────────┐            ┌─────────────┐
+    │   MySQL     │            │ OCR Engine  │            │    Redis    │
+    │ StatefulSet │            │   Service   │            │ StatefulSet │
+    │             │            │ (Port 8604) │            │             │
+    │┌───────────┐│            └─────────────┘            │┌───────────┐│
+    ││Primary Pod││                                       ││ Pod 1     ││
+    │└───────────┘│                                       │└───────────┘│
+    │┌───────────┐│                                       │┌───────────┐│
+    ││Replica Pod││                                       ││ Pod 2     ││
+    │└───────────┘│                                       │└───────────┘│
+    └─────────────┘                                       └─────────────┘
+```
+
+### Kubernetes Components
+
+#### 1. Namespace Isolation
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mediq-production
+  labels:
+    environment: production
+    team: backend
+```
+
+#### 2. Auto-scaling Configuration
+```yaml
+# Horizontal Pod Autoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+spec:
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        averageUtilization: 70
+```
+
+#### 3. Service Mesh Integration (Istio)
+```yaml
+# Virtual Service for traffic management
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+spec:
+  http:
+  - match:
+    - headers:
+        canary:
+          exact: "true"
+    route:
+    - destination:
+        host: api-gateway
+        subset: canary
+  - route:
+    - destination:
+        host: api-gateway
+        subset: stable
+```
+
 ## 🔧 Service Details
 
-### OCR Service (Port 3002)
+### OCR Service (Port 8603)
 - **Purpose**: KTP image processing and data extraction
 - **External Dependencies**: OCR CNN Engine API 
 - **Communication**: 
@@ -218,19 +391,19 @@ export class UsersController {
 - **File Handling**: Multipart upload, image validation, temporary storage
 - **Processing**: Asynchronous with status tracking
 
-### User Service (Port 3000)  
+### User Service (Port 8602)  
 - **Purpose**: User management, authentication, profile data
 - **Database**: MySQL with Prisma ORM
 - **Communication**: API Gateway + Direct service-to-service
 - **Features**: JWT authentication, role-based access, password management
 
-### Patient Queue Service (Port 3003)
+### Patient Queue Service (Port 8605)
 - **Purpose**: Queue management, real-time updates, statistics
 - **Cache**: Redis for queue state and performance
 - **Communication**: API Gateway + Direct service-to-service  
 - **Features**: Priority queues, WebSocket updates, analytics
 
-### API Gateway (Port 3001)
+### API Gateway (Port 8601)
 - **Purpose**: Entry point, routing, resilience patterns
 - **Features**: Circuit breaker, rate limiting, request/response transformation
 - **Security**: JWT validation, request sanitization, error handling
@@ -253,7 +426,7 @@ export class UsersController {
 
 **API Gateway (.env)**:
 ```env
-PORT=3001
+PORT=8601
 RABBITMQ_URL=amqp://localhost:5672
 USER_SERVICE_QUEUE=user_service_queue
 OCR_SERVICE_QUEUE=ocr_service_queue
@@ -268,7 +441,7 @@ RATE_LIMIT_WINDOW=60000
 
 **User Service (.env)**:
 ```env  
-PORT=3000
+PORT=8602
 DATABASE_URL=mysql://user:password@localhost:3306/mediq_users
 RABBITMQ_URL=amqp://localhost:5672
 JWT_SECRET=your-jwt-secret
@@ -279,7 +452,7 @@ QUEUE_SERVICE_QUEUE=patient_queue_service_queue
 
 **OCR Service (.env)**:
 ```env
-PORT=3002
+PORT=8603
 RABBITMQ_URL=amqp://localhost:5672
 OCR_API_URL=http://localhost:5000
 OCR_API_TIMEOUT=30000
@@ -291,7 +464,7 @@ ALLOWED_FILE_TYPES=jpg,jpeg,png,pdf
 
 **Patient Queue Service (.env)**:
 ```env
-PORT=3003
+PORT=8605
 RABBITMQ_URL=amqp://localhost:5672
 REDIS_URL=redis://localhost:6379
 USER_SERVICE_QUEUE=user_service_queue
@@ -381,7 +554,7 @@ services:
       DATABASE_URL: mysql://mediq:${MYSQL_PASSWORD}@mysql:3306/mediq_users
       RABBITMQ_URL: amqp://mediq:${RABBITMQ_PASSWORD}@rabbitmq:5672/mediq
     ports:
-      - "3000:3000"
+      - "8602:8602"
     depends_on:
       mysql:
         condition: service_healthy
@@ -400,7 +573,7 @@ services:
       RABBITMQ_URL: amqp://mediq:${RABBITMQ_PASSWORD}@rabbitmq:5672/mediq
       OCR_API_URL: http://ocr-engine:5000
     ports:
-      - "3002:3002"
+      - "8603:8603"
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -421,7 +594,7 @@ services:
       RABBITMQ_URL: amqp://mediq:${RABBITMQ_PASSWORD}@rabbitmq:5672/mediq
       REDIS_URL: redis://redis:6379
     ports:
-      - "3003:3003"
+      - "8605:8605"
       - "3004:3004"  # WebSocket port
     depends_on:
       rabbitmq:
@@ -439,11 +612,11 @@ services:
     build: ./MediQ-Backend-API-Gateway  
     environment:
       RABBITMQ_URL: amqp://mediq:${RABBITMQ_PASSWORD}@rabbitmq:5672/mediq
-      USER_SERVICE_URL: http://user-service:3000
-      OCR_SERVICE_URL: http://ocr-service:3002
-      QUEUE_SERVICE_URL: http://queue-service:3003
+      USER_SERVICE_URL: http://user-service:8602
+      OCR_SERVICE_URL: http://ocr-service:8603
+      QUEUE_SERVICE_URL: http://queue-service:8605
     ports:
-      - "3001:3001"
+      - "8601:8601"
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -621,22 +794,22 @@ npm run test:watch
 ### API Testing
 ```bash
 # Health checks
-curl http://localhost:3001/health
-curl http://localhost:3000/health  # User Service
-curl http://localhost:3002/health  # OCR Service
-curl http://localhost:3003/health  # Queue Service
+curl http://localhost:8601/health
+curl http://localhost:8602/health  # User Service
+curl http://localhost:8603/health  # OCR Service
+curl http://localhost:8605/health  # Queue Service
 
 # Test OCR workflow
-curl -X POST http://localhost:3001/ocr/process-ktp \
+curl -X POST http://localhost:8601/ocr/process-ktp \
   -F "ktp_image=@test/fixtures/sample-ktp.jpg"
 
 # Test queue operations
-curl -X POST http://localhost:3001/queue/add \
+curl -X POST http://localhost:8601/queue/add \
   -H "Content-Type: application/json" \
   -d '{"user_id": "user123"}'
 
 # Test authentication
-curl -X POST http://localhost:3001/auth/login/admin \
+curl -X POST http://localhost:8601/auth/login/admin \
   -H "Content-Type: application/json" \
   -d '{"email": "admin@mediq.com", "password": "admin123"}'
 ```

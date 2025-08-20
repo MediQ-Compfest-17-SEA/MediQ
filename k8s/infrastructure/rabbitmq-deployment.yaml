@@ -1,0 +1,357 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rabbitmq-pvc
+  labels:
+    app: rabbitmq
+    component: storage
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: standard
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq-config
+  labels:
+    app: rabbitmq
+    component: config
+data:
+  rabbitmq.conf: |
+    # RabbitMQ configuration for MediQ
+    loopback_users.guest = false
+    listeners.tcp.default = 5672
+    management.tcp.port = 15672
+    management.tcp.ip = 0.0.0.0
+    
+    # Clustering
+    cluster_formation.peer_discovery_backend = rabbit_peer_discovery_k8s
+    cluster_formation.k8s.host = kubernetes.default.svc.cluster.local
+    cluster_formation.k8s.address_type = hostname
+    cluster_formation.node_cleanup.interval = 10
+    cluster_formation.node_cleanup.only_log_warning = true
+    cluster_partition_handling = autoheal
+    
+    # Memory and disk
+    vm_memory_high_watermark.relative = 0.6
+    disk_free_limit.absolute = 2GB
+    
+    # Networking
+    heartbeat = 60
+    frame_max = 131072
+    channel_max = 2047
+    
+    # Logging
+    log.console = true
+    log.console.level = info
+    log.file = false
+    
+    # Management
+    management.rates_mode = basic
+    
+  enabled_plugins: |
+    [rabbitmq_management,rabbitmq_peer_discovery_k8s,rabbitmq_prometheus].
+    
+  definitions.json: |
+    {
+      "vhosts": [
+        {
+          "name": "mediq"
+        }
+      ],
+      "users": [
+        {
+          "name": "mediq_user",
+          "password_hash": "mediq_rabbit_password_2024",
+          "hashing_algorithm": "rabbit_password_hashing_sha256",
+          "tags": "administrator"
+        }
+      ],
+      "permissions": [
+        {
+          "user": "mediq_user",
+          "vhost": "mediq",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+        }
+      ],
+      "exchanges": [
+        {
+          "name": "mediq_exchange",
+          "vhost": "mediq",
+          "type": "topic",
+          "durable": true,
+          "auto_delete": false,
+          "internal": false,
+          "arguments": {}
+        }
+      ],
+      "queues": [
+        {
+          "name": "user_service_queue",
+          "vhost": "mediq",
+          "durable": true,
+          "auto_delete": false,
+          "arguments": {
+            "x-queue-type": "classic"
+          }
+        },
+        {
+          "name": "ocr_service_queue",
+          "vhost": "mediq",
+          "durable": true,
+          "auto_delete": false,
+          "arguments": {
+            "x-queue-type": "classic"
+          }
+        },
+        {
+          "name": "patient_queue_service_queue",
+          "vhost": "mediq",
+          "durable": true,
+          "auto_delete": false,
+          "arguments": {
+            "x-queue-type": "classic"
+          }
+        }
+      ],
+      "bindings": [
+        {
+          "source": "mediq_exchange",
+          "vhost": "mediq",
+          "destination": "user_service_queue",
+          "destination_type": "queue",
+          "routing_key": "user.*",
+          "arguments": {}
+        },
+        {
+          "source": "mediq_exchange",
+          "vhost": "mediq",
+          "destination": "ocr_service_queue",
+          "destination_type": "queue",
+          "routing_key": "ocr.*",
+          "arguments": {}
+        },
+        {
+          "source": "mediq_exchange",
+          "vhost": "mediq",
+          "destination": "patient_queue_service_queue",
+          "destination_type": "queue",
+          "routing_key": "queue.*",
+          "arguments": {}
+        }
+      ]
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-service
+  labels:
+    app: rabbitmq
+    component: service
+spec:
+  type: ClusterIP
+  ports:
+  - name: amqp
+    port: 5672
+    targetPort: 5672
+    protocol: TCP
+  - name: management
+    port: 15672
+    targetPort: 15672
+    protocol: TCP
+  - name: prometheus
+    port: 15692
+    targetPort: 15692
+    protocol: TCP
+  selector:
+    app: rabbitmq
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-service-headless
+  labels:
+    app: rabbitmq
+    component: headless-service
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: amqp
+    port: 5672
+    targetPort: 5672
+    protocol: TCP
+  - name: management
+    port: 15672
+    targetPort: 15672
+    protocol: TCP
+  selector:
+    app: rabbitmq
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+    component: message-broker
+spec:
+  serviceName: rabbitmq-service-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+        component: message-broker
+    spec:
+      serviceAccountName: rabbitmq
+      securityContext:
+        fsGroup: 999
+        runAsUser: 999
+        runAsGroup: 999
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3.12-management
+        ports:
+        - containerPort: 5672
+          name: amqp
+        - containerPort: 15672
+          name: management
+        - containerPort: 15692
+          name: prometheus
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_DEFAULT_USER
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_DEFAULT_PASS
+        - name: RABBITMQ_ERLANG_COOKIE
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_ERLANG_COOKIE
+        - name: RABBITMQ_NODE_NAME
+          value: "rabbit@$(hostname -f)"
+        - name: K8S_SERVICE_NAME
+          value: "rabbitmq-service-headless"
+        - name: RABBITMQ_USE_LONGNAME
+          value: "true"
+        - name: RABBITMQ_NODENAME
+          value: "rabbit@$(hostname -f)"
+        resources:
+          requests:
+            cpu: 300m
+            memory: 1Gi
+          limits:
+            cpu: 2
+            memory: 4Gi
+        volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq
+        - name: rabbitmq-config
+          mountPath: /etc/rabbitmq
+        - name: rabbitmq-definitions
+          mountPath: /etc/rabbitmq/definitions
+        livenessProbe:
+          exec:
+            command:
+            - rabbitmq-diagnostics
+            - ping
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          timeoutSeconds: 15
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - rabbitmq-diagnostics
+            - check_port_connectivity
+          initialDelaySeconds: 20
+          periodSeconds: 30
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+      volumes:
+      - name: rabbitmq-config
+        configMap:
+          name: rabbitmq-config
+          items:
+          - key: rabbitmq.conf
+            path: rabbitmq.conf
+          - key: enabled_plugins
+            path: enabled_plugins
+      - name: rabbitmq-definitions
+        configMap:
+          name: rabbitmq-config
+          items:
+          - key: definitions.json
+            path: definitions.json
+  volumeClaimTemplates:
+  - metadata:
+      name: rabbitmq-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+      storageClassName: standard
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+    component: serviceaccount
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+    component: rbac
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+    component: rbac
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: rabbitmq
+subjects:
+- kind: ServiceAccount
+  name: rabbitmq

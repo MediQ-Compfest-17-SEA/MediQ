@@ -1,0 +1,9 @@
+flask>=3.0.0
+ultralytics>=8.3.78
+opencv-python
+numpy
+pillow
+easyocr>=1.7.1
+python-dotenv
+pyyaml
+rapidfuzz>=3.8.0
