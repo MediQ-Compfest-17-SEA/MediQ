@@ -33,3 +33,4 @@ Database connection has been established successfully.
 [32m[Nest] 1655927  - [39m08/21/2025, 11:58:30 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +8ms[39m
 Patient Queue service is listening on port 8605
 Swagger documentation available at: http://localhost:8605/api/docs
+Terminated

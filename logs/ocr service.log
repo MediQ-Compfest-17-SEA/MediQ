@@ -24,3 +24,4 @@
 OCR service is listening on port 8603
 Swagger documentation available at: http://localhost:8603/api/docs
 Microservice is listening for RabbitMQ messages
+Terminated
