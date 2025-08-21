@@ -35,7 +35,7 @@ Navigate to each service directory and run:
 - **API Gateway** (Port 8601): Centralized HTTP entry point with advanced synchronization
 - **User Service** (Port 8602): User management, authentication, JWT tokens
 - **OCR Service** (Port 8603): KTP processing with external OCR API integration
-- **OCR Engine Service** (Port 8604): External OCR engine for KTP processing
+- **OCR Engine Service** (Port 8604): ML-powered OCR engine dengan YOLO + EasyOCR for KTP/SIM processing
 - **Patient Queue Service** (Port 8605): Queue management with Redis cache
 - **Institution Service** (Port 8606): Healthcare institution and service management
 
