@@ -1,41 +1,54 @@
-# OCR Engine Service Dockerfile
-FROM node:18-alpine AS builder
+# MediQ OCR Engine Service - Python Flask with YOLO + EasyOCR
+FROM python:3.11-slim as base
+
+# Install system dependencies untuk OpenCV dan ML libraries
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libfontconfig1 \
+    libxrender1 \
+    libgomp1 \
+    libgcc-s1 \
+    libgl1-mesa-glx \
+    libgthread-2.0-0 \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create non-root user untuk security
+RUN groupadd -r ocr && useradd -r -g ocr -u 1001 ocr
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-COPY tsconfig*.json ./
+# Copy requirements dan install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Install dependencies
-RUN npm ci --only=production && npm cache clean --force
+# Copy application code dengan proper ownership
+COPY --chown=ocr:ocr . .
 
-# Copy source code
-COPY src/ src/
+# Create necessary directories dengan proper permissions
+RUN mkdir -p debug_out runs/detect_train/weights uploads temp \
+    && chown -R ocr:ocr /app
 
-# Build application
-RUN npm run build
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV PORT=8604
+ENV FLASK_ENV=production
+ENV PYTHONUNBUFFERED=1
+ENV PIN_OCR_CONFIG=config.yaml
 
-# Production stage
-FROM node:18-alpine AS production
+# Switch to non-root user
+USER ocr
 
-WORKDIR /app
-
-# Copy built application and dependencies
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
-
-USER nodejs
-
+# Expose port
 EXPOSE 8604
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node dist/health-check.js
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8604/health/health || exit 1
 
-CMD ["node", "dist/main.js"]
+# Run the application
+CMD ["python", "app.py"]

@@ -6,44 +6,49 @@ services:
     ports:
       - "8604:8604"
     environment:
-      - NODE_ENV=development
       - PORT=8604
-      - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
-      - TENSORFLOW_MODEL_PATH=/app/models
-      - MAX_CONCURRENT_REQUESTS=5
-      - REQUEST_TIMEOUT=30000
-    depends_on:
-      - rabbitmq
-    networks:
-      - mediq-network
+      - FLASK_ENV=development
+      - PYTHONUNBUFFERED=1
+      - PIN_OCR_CONFIG=config.yaml
+      - LOG_LEVEL=DEBUG
+      - CUDA_VISIBLE_DEVICES=0
     volumes:
-      - ocr_models:/app/models
-      - ocr_uploads:/app/uploads
+      - ./debug_out:/app/debug_out
+      - ./uploads:/app/uploads
+      - ./runs:/app/runs
+      - ./config.yaml:/app/config.yaml:ro
+      - ./test_images:/app/test_images:ro
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD", "node", "dist/health-check.js"]
+      test: ["CMD", "curl", "-f", "http://localhost:8604/health/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
+      start_period: 60s
+    # GPU support (uncomment jika ada GPU dan nvidia-docker)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
 
-  rabbitmq:
-    image: rabbitmq:3-management
+  # Development tools
+  ocr-test:
+    build: .
+    profiles:
+      - testing
+    command: python -m pytest tests/ -v --cov=.
     environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+      - FLASK_ENV=testing
+      - PIN_OCR_CONFIG=config.example.yaml
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-    networks:
-      - mediq-network
+      - .:/app
+    depends_on:
+      - ocr-engine-service
 
 volumes:
-  ocr_models:
-  ocr_uploads:
-  rabbitmq_data:
-
-networks:
-  mediq-network:
-    driver: bridge
+  debug_out:
+  uploads:
+  runs:

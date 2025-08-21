@@ -2,6 +2,8 @@ import os, sys, time, yaml, re
 sys.path.insert(0, os.path.dirname(__file__))
 
 from flask import Flask, request, jsonify
+from flask_restx import Api, Resource, fields
+from werkzeug.datastructures import FileStorage
 from PIL import Image
 import numpy as np
 import cv2
@@ -34,6 +36,30 @@ except Exception:
     reader = easyocr.Reader(CFG["ocr"]["langs"], gpu=False)
 
 app = Flask(__name__)
+
+# Swagger API documentation setup
+api = Api(
+    app,
+    version='1.0',
+    title='MediQ OCR Engine Service',
+    description='Advanced OCR engine untuk pemrosesan KTP dan SIM menggunakan YOLO + EasyOCR',
+    doc='/docs'
+)
+
+# API namespaces
+ns_ocr = api.namespace('ocr', description='OCR Processing operations')
+ns_health = api.namespace('health', description='Health check operations')
+
+# Swagger models
+ocr_response_model = api.model('OCRResponse', {
+    'error': fields.Boolean(description='Status error', example=False),
+    'message': fields.String(description='Response message', example='Proses OCR Berhasil'),
+    'result': fields.Raw(description='OCR hasil data')
+})
+
+upload_parser = api.parser()
+upload_parser.add_argument('image', location='files', type=FileStorage, required=True, help='KTP atau SIM image file')
+
 detector = None
 try:
     if CFG["yolo"].get("use_type", True):
@@ -132,16 +158,36 @@ def ocr_nik_by_anchor_easyocr(tokens):
     m = re.search(r"\b(\d{16})\b", normalize_digits(raw_all))
     return m.group(1) if m else None
 
-@app.get("/")
-def index():
-    return jsonify({"name":"PIN OCR Service (Field-ROI / EasyOCR)","version":"4.0.1","yolo_loaded": detector is not None})
+@ns_health.route('/')
+class HealthRoot(Resource):
+    def get(self):
+        """Service information"""
+        return {
+            "name": "MediQ OCR Engine Service",
+            "version": "4.0.1", 
+            "yolo_loaded": detector is not None,
+            "port": CFG["server"]["port"],
+            "languages": CFG["ocr"]["langs"]
+        }
 
-@app.get("/healthz")
-def healthz():
-    return jsonify({"ok": True})
+@ns_health.route('/health')
+class Health(Resource):
+    def get(self):
+        """Health check endpoint"""
+        return {
+            "status": "healthy",
+            "service": "ocr-engine",
+            "timestamp": time.time(),
+            "yolo_status": "loaded" if detector else "disabled",
+            "ocr_status": "ready"
+        }
 
-@app.post("/ocr")
-def ocr_endpoint():
+@ns_ocr.route('/scan-ocr')
+class OCRProcess(Resource):
+    @api.expect(upload_parser)
+    @api.marshal_with(ocr_response_model)
+    def post(self):
+        """Process KTP atau SIM image menggunakan YOLO + EasyOCR"""
     t0=time.time()
     f = request.files.get("image")
     if not f: return jsonify({"error":True,"message":"Parameter 'image' wajib diisi","result":None}),400
@@ -207,7 +253,25 @@ def ocr_endpoint():
         return jsonify({"error":False,"message":"Tidak dapat menentukan tipe dokumen (KTP/SIM)",
                         "result":result}),200
 
-    return jsonify({"error":False,"message":"Proses OCR Berhasil","result":result})
+        return {"error": False, "message": "Proses OCR Berhasil", "result": result}
+
+# Legacy endpoints for backward compatibility
+@app.route("/")
+def index():
+    return jsonify({"name":"MediQ OCR Engine Service","version":"4.0.1","yolo_loaded": detector is not None})
+
+@app.route("/healthz")  
+def healthz():
+    return jsonify({"ok": True})
+
+@app.route("/ocr", methods=["POST"])
+def ocr_legacy():
+    """Legacy OCR endpoint for backward compatibility"""
+    return OCRProcess().post()
 
 if __name__=="__main__":
-    app.run(host=CFG["server"]["host"], port=CFG["server"]["port"], debug=CFG["server"]["debug"])
+    # Update port ke 8604 untuk consistency dengan arsitektur MediQ
+    port = int(os.getenv("PORT", CFG["server"]["port"]))
+    if port == 8000:  # Update default port
+        port = 8604
+    app.run(host=CFG["server"]["host"], port=port, debug=CFG["server"]["debug"])

@@ -4,15 +4,10 @@ metadata:
   name: ocr-engine-service
   labels:
     app: ocr-engine-service
-    component: backend
-    version: v1.0.0
+    version: v1
+    component: ml-processing
 spec:
   replicas: 2
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
   selector:
     matchLabels:
       app: ocr-engine-service
@@ -20,14 +15,13 @@ spec:
     metadata:
       labels:
         app: ocr-engine-service
-        component: backend
-        version: v1.0.0
+        version: v1
+        component: ml-processing
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "9090"
         prometheus.io/path: "/metrics"
+        prometheus.io/port: "8604"
     spec:
-      serviceAccountName: mediq-service-account
       securityContext:
         runAsNonRoot: true
         runAsUser: 1001
@@ -36,118 +30,78 @@ spec:
       containers:
       - name: ocr-engine-service
         image: mediq/ocr-engine-service:latest
-        imagePullPolicy: Always
         ports:
         - containerPort: 8604
           name: http
-          protocol: TCP
-        - containerPort: 9090
-          name: metrics
-          protocol: TCP
         env:
-        - name: NODE_ENV
-          value: "production"
         - name: PORT
           value: "8604"
+        - name: FLASK_ENV
+          value: "production"
+        - name: PIN_OCR_CONFIG
+          value: "config.yaml"
+        - name: PYTHONUNBUFFERED
+          value: "1"
         envFrom:
         - configMapRef:
-            name: ocr-engine-service-config
+            name: ocr-engine-config
         resources:
           requests:
-            cpu: 1
-            memory: 2Gi
-            ephemeral-storage: 3Gi
+            memory: "2Gi"
+            cpu: "1000m"
           limits:
-            cpu: 4
-            memory: 8Gi
-            ephemeral-storage: 10Gi
+            memory: "8Gi"
+            cpu: "4000m"
         livenessProbe:
           httpGet:
-            path: /health
+            path: /health/health
             port: 8604
-            scheme: HTTP
-          initialDelaySeconds: 90
+          initialDelaySeconds: 60
           periodSeconds: 30
-          timeoutSeconds: 20
+          timeoutSeconds: 10
           failureThreshold: 3
-          successThreshold: 1
         readinessProbe:
           httpGet:
-            path: /ready
+            path: /health/health
             port: 8604
-            scheme: HTTP
-          initialDelaySeconds: 45
-          periodSeconds: 15
-          timeoutSeconds: 15
-          failureThreshold: 3
-          successThreshold: 1
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 2
         startupProbe:
           httpGet:
-            path: /startup
+            path: /health/health
             port: 8604
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 15
-          timeoutSeconds: 10
-          failureThreshold: 20
-          successThreshold: 1
-        volumeMounts:
-        - name: tmp
-          mountPath: /tmp
-        - name: models
-          mountPath: /app/models
-        - name: templates
-          mountPath: /app/templates
-        - name: logs
-          mountPath: /app/logs
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
         securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: false
           capabilities:
             drop:
             - ALL
+        volumeMounts:
+        - name: temp-storage
+          mountPath: /app/uploads
+        - name: debug-storage
+          mountPath: /app/debug_out
+        - name: model-weights
+          mountPath: /app/runs/detect_train/weights
+          readOnly: true
       volumes:
-      - name: tmp
+      - name: temp-storage
         emptyDir:
-          sizeLimit: 2Gi
-      - name: models
+          sizeLimit: 1Gi
+      - name: debug-storage
         emptyDir:
-          sizeLimit: 5Gi
-      - name: templates
+          sizeLimit: 500Mi
+      - name: model-weights
         configMap:
-          name: ktp-templates
-      - name: logs
-        emptyDir: {}
+          name: yolo-model-weights
+      terminationGracePeriodSeconds: 30
       restartPolicy: Always
-      terminationGracePeriodSeconds: 60
-      dnsPolicy: ClusterFirst
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - ocr-engine-service
-              topologyKey: kubernetes.io/hostname
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            preference:
-              matchExpressions:
-              - key: node-type
-                operator: In
-                values:
-                - compute-optimized
-      tolerations:
-      - key: "node.kubernetes.io/not-ready"
-        operator: "Exists"
-        effect: "NoExecute"
-        tolerationSeconds: 300
-      - key: "node.kubernetes.io/unreachable"
-        operator: "Exists"
-        effect: "NoExecute"
-        tolerationSeconds: 300
