@@ -1,0 +1,1606 @@
+
+> mediq-backend-api-gateway@0.0.1 start:dev
+> nest start --watch
+
+[2J[3J[H[[90m8:54:00 PM[0m] Starting compilation in watch mode...
+
+[[90m8:54:02 PM[0m] Found 0 errors. Watching for file changes.
+
+(node:1292889) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mClientsModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/health}:[39m[38;5;3m +38ms[39m
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 1293066  - [39m08/21/2025, 8:54:12 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +1ms[39m
+🚀 MediQ API Gateway running on http://localhost:8601
+📚 API Documentation: http://localhost:8601/api/docs
+💚 Health Check: http://localhost:8601/health
+[2J[3J[H[[90m8:55:41 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m157[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m157[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m183[0m:[93m10[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m183[0m         });
+[7m   [0m [91m         ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[[90m8:55:42 PM[0m] Found 9 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:55:44 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m157[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m157[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m183[0m:[93m10[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m183[0m         });
+[7m   [0m [91m         ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[[90m8:55:44 PM[0m] Found 9 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:56:13 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m157[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m157[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m183[0m:[93m10[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m183[0m         });
+[7m   [0m [91m         ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[[90m8:56:13 PM[0m] Found 9 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:56:23 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m157[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m157[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m183[0m:[93m10[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m183[0m         });
+[7m   [0m [91m         ~[0m
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:56:23 PM[0m] Found 13 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:56:48 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:56:48 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:56:50 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:56:50 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:56:51 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:56:51 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:56:52 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:56:52 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:57:02 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:57:02 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:57:03 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:57:03 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:57:04 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:57:04 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:57:05 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:57:05 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:57:22 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:57:22 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:57:34 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:57:34 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:59:54 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:59:54 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:59:56 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:59:56 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m8:59:57 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/idempotency.interceptor.ts[0m:[93m200[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m200[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m8:59:57 PM[0m] Found 11 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:13:59 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:13:59 PM[0m] Found 10 errors. Watching for file changes.
+
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mClientsModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/health}:[39m[38;5;3m +9ms[39m
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 1331051  - [39m08/21/2025, 9:13:59 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +1ms[39m
+🚀 MediQ API Gateway running on http://localhost:8601
+📚 API Documentation: http://localhost:8601/api/docs
+💚 Health Check: http://localhost:8601/health
+[2J[3J[H[[90m9:14:14 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/metrics.interceptor.ts[0m:[93m163[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m163[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:14:14 PM[0m] Found 10 errors. Watching for file changes.
+
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mClientsModule dependencies initialized[39m[38;5;3m +45ms[39m
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/health}:[39m[38;5;3m +10ms[39m
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 1331789  - [39m08/21/2025, 9:14:15 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +2ms[39m
+🚀 MediQ API Gateway running on http://localhost:8601
+📚 API Documentation: http://localhost:8601/api/docs
+💚 Health Check: http://localhost:8601/health
+[2J[3J[H[[90m9:14:21 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m107[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m107[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:14:21 PM[0m] Found 9 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:14:32 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m128[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m128[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:14:32 PM[0m] Found 8 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:14:42 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/patterns/compensation.pattern.ts[0m:[93m156[0m:[93m6[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m156[0m     });
+[7m   [0m [91m     ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:14:42 PM[0m] Found 7 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:14:49 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:14:49 PM[0m] Found 6 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:16:46 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:16:46 PM[0m] Found 6 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:17:00 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:17:00 PM[0m] Found 6 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:17:09 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:17:09 PM[0m] Found 6 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:17:18 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:17:18 PM[0m] Found 6 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:17:27 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m100[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m100[0m   getMetrics() {
+[7m   [0m [91m  ~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m112[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m112[0m   getSlowEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m124[0m:[93m3[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m124[0m   getErrorEndpoints(@Query('limit') limit?: string) {
+[7m   [0m [91m  ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/gateway/monitoring.controller.ts[0m:[93m203[0m:[93m9[0m - [91merror[0m[90m TS4053: [0mReturn type of public method from exported class has or is using name 'PerformanceMetrics' from external module "/home/killerking/automated_project/compfest/MediQ/MediQ-Backend-API-Gateway/src/common/interceptors/metrics.interceptor" but cannot be named.
+
+[7m203[0m   async getDashboardData() {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~[0m
+
+[[90m9:17:27 PM[0m] Found 6 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:17:47 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[[90m9:17:47 PM[0m] Found 2 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:18:15 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m178[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m178[0m       });
+[7m   [0m [91m       ~[0m
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[[90m9:18:15 PM[0m] Found 2 errors. Watching for file changes.
+
+[2J[3J[H[[90m9:18:38 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/interceptors/retry.interceptor.ts[0m:[93m198[0m:[93m8[0m - [91merror[0m[90m TS1005: [0m',' expected.
+
+[7m198[0m       });
+[7m   [0m [91m       ~[0m
+
+[[90m9:18:38 PM[0m] Found 1 error. Watching for file changes.
+
+[2J[3J[H[[90m9:18:45 PM[0m] File change detected. Starting incremental compilation...
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m55[0m:[93m32[0m - [91merror[0m[90m TS2554: [0mExpected 2-3 arguments, but got 1.
+
+[7m55[0m     await this.sagaCoordinator.startSaga(sagaDefinition);
+[7m  [0m [91m                               ~~~~~~~~~[0m
+
+  [96msrc/common/services/saga-coordinator.service.ts[0m:[93m43[0m:[93m33[0m
+    [7m43[0m   async startSaga(name: string, steps: Omit<SagaStep, 'id' | 'executed' | 'compensated'>[], metadata?: any): Promise<string> {
+    [7m  [0m [96m                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    An argument for 'steps' was not provided.
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'sagaId' does not exist in type 'SagaDefinition'.
+
+[7m66[0m       sagaId,
+[7m  [0m [91m      ~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m76[0m:[93m5[0m - [91merror[0m[90m TS2322: [0mType 'void' is not assignable to type 'string'.
+
+[7m76[0m     return await this.sagaCoordinator.executeSaga(sagaDefinition, context);
+[7m  [0m [91m    ~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m76[0m:[93m39[0m - [91merror[0m[90m TS2341: [0mProperty 'executeSaga' is private and only accessible within class 'SagaCoordinatorService'.
+
+[7m76[0m     return await this.sagaCoordinator.executeSaga(sagaDefinition, context);
+[7m  [0m [91m                                      ~~~~~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m76[0m:[93m67[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m76[0m     return await this.sagaCoordinator.executeSaga(sagaDefinition, context);
+[7m  [0m [91m                                                                  ~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m96[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'sagaId' does not exist in type 'SagaDefinition'.
+
+[7m96[0m       sagaId,
+[7m  [0m [91m      ~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m106[0m:[93m5[0m - [91merror[0m[90m TS2322: [0mType 'void' is not assignable to type 'string'.
+
+[7m106[0m     return await this.sagaCoordinator.executeSaga(sagaDefinition, context);
+[7m   [0m [91m    ~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m106[0m:[93m39[0m - [91merror[0m[90m TS2341: [0mProperty 'executeSaga' is private and only accessible within class 'SagaCoordinatorService'.
+
+[7m106[0m     return await this.sagaCoordinator.executeSaga(sagaDefinition, context);
+[7m   [0m [91m                                      ~~~~~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m106[0m:[93m67[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m106[0m     return await this.sagaCoordinator.executeSaga(sagaDefinition, context);
+[7m   [0m [91m                                                                  ~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m144[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'SagaStep'.
+
+[7m144[0m       timeout: 30000,
+[7m   [0m [91m      ~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m180[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'SagaStep'.
+
+[7m180[0m       timeout: 20000,
+[7m   [0m [91m      ~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m217[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'SagaStep'.
+
+[7m217[0m       timeout: 15000,
+[7m   [0m [91m      ~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m279[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'SagaStep'.
+
+[7m279[0m       timeout: 25000,
+[7m   [0m [91m      ~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m311[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'SagaStep'.
+
+[7m311[0m       timeout: 20000,
+[7m   [0m [91m      ~~~~~~~[0m
+
+[96msrc/common/patterns/saga.pattern.ts[0m:[93m346[0m:[93m7[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'SagaStep'.
+
+[7m346[0m       timeout: 15000,
+[7m   [0m [91m      ~~~~~~~[0m
+
+[96msrc/common/services/health-monitor.service.ts[0m:[93m80[0m:[93m11[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'CircuitBreakerConfig'.
+
+[7m80[0m           timeout: 5000,
+[7m  [0m [91m          ~~~~~~~[0m
+
+[96msrc/gateway/advanced-gateway.controller.ts[0m:[93m249[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'CircuitBreakerConfig'.
+
+[7m249[0m         timeout: 10000,
+[7m   [0m [91m        ~~~~~~~[0m
+
+[96msrc/gateway/advanced-gateway.controller.ts[0m:[93m332[0m:[93m13[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'timeout' does not exist in type 'CircuitBreakerConfig'.
+
+[7m332[0m             timeout: 5000,
+[7m   [0m [91m            ~~~~~~~[0m
+
+[[90m9:18:45 PM[0m] Found 18 errors. Watching for file changes.
+

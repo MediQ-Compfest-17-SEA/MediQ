@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ocr-service-config
+  namespace: mediq
+data:
+  PORT: "8603"
+  RABBITMQ_URL: "amqp://rabbitmq:5672"
+  NODE_ENV: "production"
+  OCR_API_URL: "https://api.mindee.net/v1/products/mindee/idcard_fr/v2/predict"
+  OCR_API_KEY: "your_ocr_api_key"
+  OCR_ENGINE_SERVICE_URL: "http://ocr-engine-service:8604"

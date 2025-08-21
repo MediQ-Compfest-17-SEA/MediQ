@@ -188,70 +188,70 @@ class OCRProcess(Resource):
     @api.marshal_with(ocr_response_model)
     def post(self):
         """Process KTP atau SIM image menggunakan YOLO + EasyOCR"""
-    t0=time.time()
-    f = request.files.get("image")
-    if not f: return jsonify({"error":True,"message":"Parameter 'image' wajib diisi","result":None}),400
-    img_bytes = f.read()
-    bgr = read_bgr(img_bytes)
-    if bgr is None: return jsonify({"error":True,"message":"Gagal membaca gambar","result":None}),400
+        t0=time.time()
+        f = request.files.get("image")
+        if not f: return jsonify({"error":True,"message":"Parameter 'image' wajib diisi","result":None}),400
+        img_bytes = f.read()
+        bgr = read_bgr(img_bytes)
+        if bgr is None: return jsonify({"error":True,"message":"Gagal membaca gambar","result":None}),400
 
-    bgr = ensure_min_width(bgr, min_width=CFG["ocr"]["min_width"])
-    rect = rectify_card(bgr)
+        bgr = ensure_min_width(bgr, min_width=CFG["ocr"]["min_width"])
+        rect = rectify_card(bgr)
 
-    doc_type=None; box=None
-    if detector is not None and CFG["yolo"].get("use_type", True):
-        try:
-            doc_type, box = detector.predict_type_and_box(rect)
-        except Exception as e:
-            print("[WARN] YOLO predict error:", e)
+        doc_type=None; box=None
+        if detector is not None and CFG["yolo"].get("use_type", True):
+            try:
+                doc_type, box = detector.predict_type_and_box(rect)
+            except Exception as e:
+                print("[WARN] YOLO predict error:", e)
 
-    panel, nik_band = crop_panel_and_nik(rect)
+        panel, nik_band = crop_panel_and_nik(rect)
 
-    best_panel = easy_sweep(panel, save_prefix="panel")
-    best_full  = easy_sweep(rect,  save_prefix="full")
+        best_panel = easy_sweep(panel, save_prefix="panel")
+        best_full  = easy_sweep(rect,  save_prefix="full")
 
-    tokens_nik = easy_read_tokens(nik_band)
-    raw_nik = " ".join(t["text"] for t in tokens_nik)
-    digits = re.findall(r"\d", normalize_digits(raw_nik))
-    nik_best = {"score": len(digits), "digits": "".join(digits)}
+        tokens_nik = easy_read_tokens(nik_band)
+        raw_nik = " ".join(t["text"] for t in tokens_nik)
+        digits = re.findall(r"\d", normalize_digits(raw_nik))
+        nik_best = {"score": len(digits), "digits": "".join(digits)}
 
-    text = best_panel["text"] if best_panel["score"] >= max(2, best_full["score"]) else best_full["text"]
-    tokens_full = best_full["tokens"] if text == best_full["text"] else best_panel["tokens"]
+        text = best_panel["text"] if best_panel["score"] >= max(2, best_full["score"]) else best_full["text"]
+        tokens_full = best_full["tokens"] if text == best_full["text"] else best_panel["tokens"]
 
-    TUP = (text or "").upper()
-    if doc_type is None:
-        if ("SURAT IZIN MENGEMUDI" in TUP) or re.search(r'\bSIM\b', TUP): doc_type="sim"
-        elif ("KARTU TANDA PENDUDUK" in TUP) or ("NIK" in TUP): doc_type="ktp"
+        TUP = (text or "").upper()
+        if doc_type is None:
+            if ("SURAT IZIN MENGEMUDI" in TUP) or re.search(r'\bSIM\b', TUP): doc_type="sim"
+            elif ("KARTU TANDA PENDUDUK" in TUP) or ("NIK" in TUP): doc_type="ktp"
 
-    nik_anchor = ocr_nik_by_anchor_easyocr(tokens_full)
+        nik_anchor = ocr_nik_by_anchor_easyocr(tokens_full)
 
-    if doc_type=="sim":
-        result = parse_sim_text(text)
-    else:
-        result = parse_ktp_text(text)
-        if not result.get("nik"):
-            if nik_anchor and len(nik_anchor) >= 12:
-                result["nik"] = nik_anchor[:16]
-            elif nik_best["score"] >= 12:
-                s = nik_best["digits"]
-                result["nik"] = s[:16] if len(s) >= 16 else s
-        doc_type = "ktp" if doc_type is None else doc_type
+        if doc_type=="sim":
+            result = parse_sim_text(text)
+        else:
+            result = parse_ktp_text(text)
+            if not result.get("nik"):
+                if nik_anchor and len(nik_anchor) >= 12:
+                    result["nik"] = nik_anchor[:16]
+                elif nik_best["score"] >= 12:
+                    s = nik_best["digits"]
+                    result["nik"] = s[:16] if len(s) >= 16 else s
+            doc_type = "ktp" if doc_type is None else doc_type
 
-    elapsed = f"{time.time()-t0:.3f}"
-    result["tipe_identifikasi"] = doc_type
-    result["time_elapsed"] = elapsed
+        elapsed = f"{time.time()-t0:.3f}"
+        result["tipe_identifikasi"] = doc_type
+        result["time_elapsed"] = elapsed
 
-    debug_mode = request.args.get("debug") in ("1","true","yes")
-    if debug_mode:
-        result["debug"] = {
-            "panel": {"which": best_panel["which"], "score": best_panel["score"]},
-            "full":  {"which": best_full["which"],  "score": best_full["score"]},
-            "nik_digits": nik_best["score"]
-        }
+        debug_mode = request.args.get("debug") in ("1","true","yes")
+        if debug_mode:
+            result["debug"] = {
+                "panel": {"which": best_panel["which"], "score": best_panel["score"]},
+                "full":  {"which": best_full["which"],  "score": best_full["score"]},
+                "nik_digits": nik_best["score"]
+            }
 
-    if result.get("tipe_identifikasi") is None:
-        return jsonify({"error":False,"message":"Tidak dapat menentukan tipe dokumen (KTP/SIM)",
-                        "result":result}),200
+        if result.get("tipe_identifikasi") is None:
+            return jsonify({"error":False,"message":"Tidak dapat menentukan tipe dokumen (KTP/SIM)",
+                            "result":result}),200
 
         return {"error": False, "message": "Proses OCR Berhasil", "result": result}
 

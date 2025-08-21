@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-queue-service
+  namespace: mediq
+  labels:
+    app: patient-queue-service
+    service: patient-queue-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: patient-queue-service
+  template:
+    metadata:
+      labels:
+        app: patient-queue-service
+    spec:
+      containers:
+      - name: patient-queue-service
+        image: mediq/patient-queue-service:latest
+        ports:
+        - containerPort: 8605
+          name: http
+        envFrom:
+        - configMapRef:
+            name: patient-queue-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8605
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8605
+          initialDelaySeconds: 5
+          periodSeconds: 5

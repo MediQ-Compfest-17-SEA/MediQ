@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocr-engine-service
+  namespace: mediq
+  labels:
+    app: ocr-engine-service
+    service: ocr-engine-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocr-engine-service
+  template:
+    metadata:
+      labels:
+        app: ocr-engine-service
+    spec:
+      containers:
+      - name: ocr-engine-service
+        image: mediq/ocr-engine-service:latest
+        ports:
+        - containerPort: 8604
+          name: http
+        envFrom:
+        - configMapRef:
+            name: ocr-engine-service-config
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        volumeMounts:
+        - name: model-storage
+          mountPath: /app/models
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8604
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8604
+          initialDelaySeconds: 30
+          periodSeconds: 5
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: ocr-models-pvc

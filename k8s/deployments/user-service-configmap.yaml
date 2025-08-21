@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-service-config
+  namespace: mediq
+data:
+  PORT: "8602"
+  RABBITMQ_URL: "amqp://rabbitmq:5672"
+  DATABASE_URL: "mysql://mediq_user:password@mysql:3306/mediq_user_db"
+  NODE_ENV: "production"
+  JWT_SECRET: "your_jwt_secret_key"
+  JWT_REFRESH_SECRET: "your_jwt_refresh_secret_key"
+  JWT_ACCESS_EXPIRE: "15m"
+  JWT_REFRESH_EXPIRE: "7d"

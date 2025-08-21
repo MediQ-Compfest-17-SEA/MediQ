@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: institution-service
+  namespace: mediq
+  labels:
+    app: institution-service
+    service: institution-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: institution-service
+  template:
+    metadata:
+      labels:
+        app: institution-service
+    spec:
+      containers:
+      - name: institution-service
+        image: mediq/institution-service:latest
+        ports:
+        - containerPort: 8606
+          name: http
+        envFrom:
+        - configMapRef:
+            name: institution-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8606
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8606
+          initialDelaySeconds: 5
+          periodSeconds: 5

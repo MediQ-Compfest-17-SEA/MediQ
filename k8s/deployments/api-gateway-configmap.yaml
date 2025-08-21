@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-gateway-config
+  namespace: mediq
+data:
+  PORT: "8601"
+  RABBITMQ_URL: "amqp://rabbitmq:5672"
+  NODE_ENV: "production"
+  JWT_SECRET: "your_jwt_secret_key"
+  JWT_REFRESH_SECRET: "your_jwt_refresh_secret_key"
+  USER_SERVICE_URL: "http://user-service:8602"
+  OCR_SERVICE_URL: "http://ocr-service:8603"
+  OCR_ENGINE_SERVICE_URL: "http://ocr-engine-service:8604"
+  PATIENT_QUEUE_SERVICE_URL: "http://patient-queue-service:8605"
+  INSTITUTION_SERVICE_URL: "http://institution-service:8606"
+  REDIS_URL: "redis://redis:6379"

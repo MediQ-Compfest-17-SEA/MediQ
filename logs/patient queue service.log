@@ -1,0 +1,35 @@
+
+> MediQ-Backend-Patient-Queue-Service@0.0.1 start:dev
+> nest start --watch
+
+[2J[3J[H[[90m8:14:41 PM[0m] Starting compilation in watch mode...
+
+[[90m8:14:47 PM[0m] Found 0 errors. Watching for file changes.
+
+(node:1217715) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +9ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mQueueModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCacheModule dependencies initialized[39m[38;5;3m +4ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/}:[39m[38;5;3m +21ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mQueueController {/queue}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/queue, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/queue, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/queue/stats, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/queue/next, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/queue/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/queue/:id/status, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/queue/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mStatsController {/stats}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/stats/daily, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/stats/weekly, GET} route[39m[38;5;3m +0ms[39m
+Database connection has been established successfully.
+[32m[Nest] 1217914  - [39m08/21/2025, 8:14:48 PM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +9ms[39m
+Patient Queue service is listening on port 8605
+Swagger documentation available at: http://localhost:8605/api/docs

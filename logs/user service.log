@@ -1,0 +1,43 @@
+
+> MediQ-Backend-User-Service@0.0.1 start:dev
+> nest start --watch
+
+[2J[3J[H[[90m8:14:35 PM[0m] Starting compilation in watch mode...
+
+[[90m8:14:38 PM[0m] Found 0 errors. Watching for file changes.
+
+(node:1217406) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Database connected successfully.
+User service is listening on port 8602
+Swagger documentation available at: http://localhost:8602/api/docs
+Microservice is listening for RabbitMQ messages
+[20:14:39.114] INFO (1217532): Starting Nest application... {"context":"NestFactory"}
+[20:14:39.114] INFO (1217532): PrismaModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): PassportModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): ConfigHostModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): AppModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): ConfigModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): LoggerModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): JwtModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): UserModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): AuthModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:39.114] INFO (1217532): Nest microservice successfully started {"context":"NestMicroservice"}
+[20:14:39.119] INFO (1217532): AppController {/}: {"context":"RoutesResolver"}
+[20:14:39.120] INFO (1217532): Mapped {/, GET} route {"context":"RouterExplorer"}
+[20:14:39.120] INFO (1217532): UserController {/users}: {"context":"RoutesResolver"}
+[20:14:39.120] INFO (1217532): Mapped {/users, POST} route {"context":"RouterExplorer"}
+[20:14:39.120] INFO (1217532): Mapped {/users/check-nik/:nik, GET} route {"context":"RouterExplorer"}
+[20:14:39.121] INFO (1217532): Mapped {/users/profile, GET} route {"context":"RouterExplorer"}
+[20:14:39.121] INFO (1217532): Mapped {/users, GET} route {"context":"RouterExplorer"}
+[20:14:39.121] INFO (1217532): Mapped {/users/:id/role, PATCH} route {"context":"RouterExplorer"}
+[20:14:39.121] INFO (1217532): Mapped {/users/:id, DELETE} route {"context":"RouterExplorer"}
+[20:14:39.121] INFO (1217532): AuthController {/auth}: {"context":"RoutesResolver"}
+[20:14:39.121] INFO (1217532): Mapped {/auth/login/admin, POST} route {"context":"RouterExplorer"}
+[20:14:39.121] INFO (1217532): Mapped {/auth/login/user, POST} route {"context":"RouterExplorer"}
+[20:14:39.121] INFO (1217532): Mapped {/auth/refresh, GET} route {"context":"RouterExplorer"}
+[20:14:39.122] INFO (1217532): Mapped {/auth/logout, GET} route {"context":"RouterExplorer"}
+[20:14:39.125] INFO (1217532): Nest application successfully started {"context":"NestApplication"}
+[20:15:16.671] INFO (1217532): request completed {"req":{"id":1,"method":"GET","url":"/health","query":{},"params":{"path":["health"]},"headers":{"host":"localhost:8602","user-agent":"curl/7.88.1","accept":"*/*"},"remoteAddress":"::ffff:127.0.0.1","remotePort":47092},"res":{"statusCode":404,"headers":{"x-powered-by":"Express","content-type":"application/json; charset=utf-8","content-length":"69","etag":"W/\"45-GtTox42K5gkwECsJlwFl77mrgiE\""}},"responseTime":3}
+[20:19:13.133] INFO (1217532): request completed {"req":{"id":2,"method":"HEAD","url":"/","query":{},"params":{},"headers":{"host":"localhost:8602","user-agent":"curl/7.88.1","accept":"*/*"},"remoteAddress":"::ffff:127.0.0.1","remotePort":42632},"res":{"statusCode":200,"headers":{"x-powered-by":"Express","content-type":"text/html; charset=utf-8","content-length":"12","etag":"W/\"c-Lve95gjOVATpfV8EL5X4nxwjKHE\""}},"responseTime":1}
+[20:20:31.839] INFO (1217532): request completed {"req":{"id":3,"method":"GET","url":"/","query":{},"params":{},"headers":{"host":"localhost:8602","user-agent":"curl/7.88.1","accept":"*/*"},"remoteAddress":"::ffff:127.0.0.1","remotePort":44416},"res":{"statusCode":200,"headers":{"x-powered-by":"Express","content-type":"text/html; charset=utf-8","content-length":"12","etag":"W/\"c-Lve95gjOVATpfV8EL5X4nxwjKHE\""}},"responseTime":0}

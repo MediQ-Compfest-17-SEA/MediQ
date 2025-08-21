@@ -1,0 +1,39 @@
+
+> MediQ-Backend-Institution-Service@0.0.1 start:dev
+> nest start --watch
+
+[2J[3J[H[[90m8:14:43 PM[0m] Starting compilation in watch mode...
+
+[[90m8:14:50 PM[0m] Found 0 errors. Watching for file changes.
+
+(node:1217795) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Database connected successfully.
+Institution service is listening on port 8606
+Swagger documentation available at: http://localhost:8606/api/docs
+Microservice is listening for RabbitMQ messages
+[20:14:51.166] INFO (1218026): Starting Nest application... {"context":"NestFactory"}
+[20:14:51.166] INFO (1218026): PrismaModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:51.166] INFO (1218026): ConfigHostModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:51.166] INFO (1218026): AppModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:51.166] INFO (1218026): ConfigModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:51.166] INFO (1218026): LoggerModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:51.166] INFO (1218026): InstitutionModule dependencies initialized {"context":"InstanceLoader"}
+[20:14:51.166] INFO (1218026): Nest microservice successfully started {"context":"NestMicroservice"}
+[20:14:51.170] INFO (1218026): AppController {/}: {"context":"RoutesResolver"}
+[20:14:51.171] INFO (1218026): Mapped {/, GET} route {"context":"RouterExplorer"}
+[20:14:51.171] INFO (1218026): Mapped {/health, GET} route {"context":"RouterExplorer"}
+[20:14:51.171] INFO (1218026): InstitutionController {/institutions}: {"context":"RoutesResolver"}
+[20:14:51.172] INFO (1218026): Mapped {/institutions, POST} route {"context":"RouterExplorer"}
+[20:14:51.172] INFO (1218026): Mapped {/institutions, GET} route {"context":"RouterExplorer"}
+[20:14:51.172] INFO (1218026): Mapped {/institutions/:id, GET} route {"context":"RouterExplorer"}
+[20:14:51.172] INFO (1218026): Mapped {/institutions/:id, PATCH} route {"context":"RouterExplorer"}
+[20:14:51.172] INFO (1218026): Mapped {/institutions/:id, DELETE} route {"context":"RouterExplorer"}
+[20:14:51.172] INFO (1218026): Mapped {/institutions/:id/services, GET} route {"context":"RouterExplorer"}
+[20:14:51.172] INFO (1218026): Mapped {/institutions/search/:searchName, GET} route {"context":"RouterExplorer"}
+[20:14:51.173] INFO (1218026): Mapped {/institutions/:id/services, GET} route {"context":"RouterExplorer"}
+[20:14:51.176] INFO (1218026): Nest application successfully started {"context":"NestApplication"}
+[20:15:21.979] INFO (1218026): request completed {"req":{"id":1,"method":"GET","url":"/health","query":{},"params":{"path":["health"]},"headers":{"host":"localhost:8606","user-agent":"curl/7.88.1","accept":"*/*"},"remoteAddress":"::ffff:127.0.0.1","remotePort":43830},"context":"HTTP","res":{"statusCode":200,"headers":{"x-powered-by":"Express","content-type":"application/json; charset=utf-8","content-length":"119","etag":"W/\"77-uBMs2tB+il7ctB+GxcWwmK/HMsw\""}},"responseTime":3}
+[20:19:17.911] INFO (1218026): request completed {"req":{"id":2,"method":"HEAD","url":"/","query":{},"params":{},"headers":{"host":"localhost:8606","user-agent":"curl/7.88.1","accept":"*/*"},"remoteAddress":"::ffff:127.0.0.1","remotePort":51604},"context":"HTTP","res":{"statusCode":200,"headers":{"x-powered-by":"Express","content-type":"application/json; charset=utf-8","content-length":"76","etag":"W/\"4c-s2lm+8S6BWcZp/hCJCOkquSQGfk\""}},"responseTime":1}
+[20:20:31.865] INFO (1218026): request completed {"req":{"id":3,"method":"GET","url":"/","query":{},"params":{},"headers":{"host":"localhost:8606","user-agent":"curl/7.88.1","accept":"*/*"},"remoteAddress":"::ffff:127.0.0.1","remotePort":35952},"context":"HTTP","res":{"statusCode":200,"headers":{"x-powered-by":"Express","content-type":"application/json; charset=utf-8","content-length":"76","etag":"W/\"4c-s2lm+8S6BWcZp/hCJCOkquSQGfk\""}},"responseTime":1}
+[20:20:31.877] INFO (1218026): request completed {"req":{"id":4,"method":"GET","url":"/health","query":{},"params":{"path":["health"]},"headers":{"host":"localhost:8606","user-agent":"curl/7.88.1","accept":"*/*"},"remoteAddress":"::ffff:127.0.0.1","remotePort":35956},"context":"HTTP","res":{"statusCode":200,"headers":{"x-powered-by":"Express","content-type":"application/json; charset=utf-8","content-length":"120","etag":"W/\"78-gjEdxL/Nf3IcSaV0n5+MD60kuGU\""}},"responseTime":1}

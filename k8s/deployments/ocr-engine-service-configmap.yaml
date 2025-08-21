@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ocr-engine-service-config
+  namespace: mediq
+data:
+  PORT: "8604"
+  RABBITMQ_URL: "amqp://rabbitmq:5672"
+  NODE_ENV: "production"
+  YOLO_MODEL_PATH: "/app/models/yolo_ktp.pt"
+  EASYOCR_LANGUAGES: "['id', 'en']"
+  MODEL_CONFIDENCE_THRESHOLD: "0.5"

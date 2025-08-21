@@ -1,34 +1,14 @@
 version: '3.8'
 
 services:
-  # MySQL Database for User Service and Patient Queue Service
-  mysql:
-    image: mysql:8.0
-    container_name: mediq-mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=password
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - ./scripts/init-databases.sql:/docker-entrypoint-initdb.d/init-databases.sql
-    networks:
-      - mediq-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
+# MySQL Database runs on host system - no Docker container needed
 
   # Redis Cache for Patient Queue Service
   redis:
     image: redis:7-alpine
     container_name: mediq-redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redis_data:/data
     networks:
@@ -67,7 +47,7 @@ services:
     image: prom/prometheus:latest
     container_name: mediq-prometheus
     ports:
-      - "9090:9090"
+      - "9091:9090"
     volumes:
       - ./k8s/shared/monitoring/prometheus:/etc/prometheus
       - prometheus_data:/prometheus
@@ -94,8 +74,6 @@ services:
       - mediq-network
 
 volumes:
-  mysql_data:
-    driver: local
   redis_data:
     driver: local
   rabbitmq_data:

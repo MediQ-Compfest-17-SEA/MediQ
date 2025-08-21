@@ -1,0 +1,40 @@
+# Cloudflare Tunnel Configuration for MediQ Backend Services
+
+tunnel: lisa-core-tunnel
+credentials-file: /etc/cloudflared/fa9c2200-79ee-4d0e-9429-d095b1a33581.json
+origincert: /etc/letsencrypt/live/mediq.craftthingy.com/cert.pem
+
+ingress:
+  # API Gateway
+  - hostname: mediq-api-gateway.craftthingy.com
+    service: http://localhost:8601
+    
+  # User Service  
+  - hostname: mediq-user-service.craftthingy.com
+    service: http://localhost:8602
+    
+  # OCR Service
+  - hostname: mediq-ocr-service.craftthingy.com
+    service: http://localhost:8603
+    
+  # OCR Engine Service
+  - hostname: mediq-ocr-engine-service.craftthingy.com
+    service: http://localhost:8604
+    
+  # Patient Queue Service
+  - hostname: mediq-patient-queue-service.craftthingy.com
+    service: http://localhost:8605
+    
+  # Institution Service
+  - hostname: mediq-institution-service.craftthingy.com
+    service: http://localhost:8606
+    
+  # Webhook endpoint for CI/CD
+  - hostname: mediq-webhook.craftthingy.com
+    service: http://localhost:9999
+    
+  # Default catch-all
+  - service: http_status:404
+
+# Optional: Enable metrics and debugging
+metrics: 0.0.0.0:8080

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocr-service
+  namespace: mediq
+  labels:
+    app: ocr-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8603
+    targetPort: 8603
+    protocol: TCP
+    name: http
+  selector:
+    app: ocr-service

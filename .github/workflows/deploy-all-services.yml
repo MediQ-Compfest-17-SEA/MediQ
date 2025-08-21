@@ -1,0 +1,95 @@
+name: Deploy All MediQ Services
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: 'Specific service to deploy (optional)'
+        required: false
+        type: choice
+        options:
+          - 'all'
+          - 'api-gateway'
+          - 'user-service'
+          - 'ocr-service'
+          - 'ocr-engine-service'
+          - 'patient-queue-service'
+          - 'institution-service'
+          - 'frontend-service'
+        default: 'all'
+      skip_tests:
+        description: 'Skip tests during deployment'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    timeout-minutes: 30
+    
+    steps:
+    - name: Checkout main repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Set deployment parameters
+      id: params
+      run: |
+        if [ "${{ github.event.inputs.service }}" == "" ] || [ "${{ github.event.inputs.service }}" == "all" ]; then
+          echo "DEPLOY_ALL=true" >> $GITHUB_OUTPUT
+        else
+          echo "DEPLOY_ALL=false" >> $GITHUB_OUTPUT
+          echo "DEPLOY_SERVICE=${{ github.event.inputs.service }}" >> $GITHUB_OUTPUT
+        fi
+        echo "SKIP_TESTS=${{ github.event.inputs.skip_tests }}" >> $GITHUB_OUTPUT
+
+    - name: Pull latest changes from all repositories
+      run: |
+        chmod +x scripts/pull-all-repos.sh
+        ./scripts/pull-all-repos.sh
+
+    - name: Run pre-deployment health checks
+      run: |
+        chmod +x scripts/health-check.sh
+        ./scripts/health-check.sh --pre-deployment
+
+    - name: Deploy services
+      run: |
+        chmod +x scripts/deploy-services.sh
+        if [ "${{ steps.params.outputs.DEPLOY_ALL }}" == "true" ]; then
+          ./scripts/deploy-services.sh --all --skip-tests=${{ steps.params.outputs.SKIP_TESTS }}
+        else
+          ./scripts/deploy-services.sh --service=${{ steps.params.outputs.DEPLOY_SERVICE }} --skip-tests=${{ steps.params.outputs.SKIP_TESTS }}
+        fi
+
+    - name: Wait for services to stabilize
+      run: sleep 30
+
+    - name: Run post-deployment health checks
+      run: |
+        ./scripts/health-check.sh --post-deployment
+        if [ $? -ne 0 ]; then
+          echo "Health checks failed, initiating rollback..."
+          ./scripts/rollback-services.sh
+          exit 1
+        fi
+
+    - name: Run integration tests
+      if: ${{ !inputs.skip_tests }}
+      run: |
+        chmod +x scripts/run-integration-tests.sh
+        ./scripts/run-integration-tests.sh
+
+    - name: Send deployment notification
+      if: always()
+      run: |
+        chmod +x scripts/send-notification.sh
+        ./scripts/send-notification.sh "${{ job.status }}" "${{ github.event.inputs.service || 'all' }}"

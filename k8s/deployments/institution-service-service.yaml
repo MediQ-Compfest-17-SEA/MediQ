@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: institution-service
+  namespace: mediq
+  labels:
+    app: institution-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8606
+    targetPort: 8606
+    protocol: TCP
+    name: http
+  selector:
+    app: institution-service

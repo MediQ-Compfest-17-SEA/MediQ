@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: institution-service-config
+  namespace: mediq
+data:
+  PORT: "8606"
+  RABBITMQ_URL: "amqp://rabbitmq:5672"
+  DATABASE_URL: "mysql://mediq_institution:password@mysql:3306/mediq_institution_db"
+  NODE_ENV: "production"
+  FASKES_CACHE_TTL: "7200"
