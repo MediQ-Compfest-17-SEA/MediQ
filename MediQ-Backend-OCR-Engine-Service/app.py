@@ -40,15 +40,19 @@ app = Flask(__name__)
 # Swagger API documentation setup
 api = Api(
     app,
-    version='1.0',
+    version='2.0',
     title='MediQ OCR Engine Service',
-    description='Advanced OCR engine untuk pemrosesan KTP dan SIM menggunakan YOLO + EasyOCR',
-    doc='/docs'
+    description='Advanced ML-powered OCR engine untuk ekstraksi data KTP dan SIM menggunakan YOLO + EasyOCR. Service ini terintegrasi dengan OCR Service untuk processing gambar dokumen identitas.',
+    doc='/docs',
+    contact='MediQ Support',
+    contact_url='https://mediq.craftthingy.com',
+    contact_email='support@mediq.com'
 )
 
 # API namespaces
 ns_ocr = api.namespace('ocr', description='OCR Processing operations')
 ns_health = api.namespace('health', description='Health check operations')
+ns_root = api.namespace('', description='Root endpoints')
 
 # Swagger models
 ocr_response_model = api.model('OCRResponse', {
@@ -158,6 +162,26 @@ def ocr_nik_by_anchor_easyocr(tokens):
     m = re.search(r"\b(\d{16})\b", normalize_digits(raw_all))
     return m.group(1) if m else None
 
+@ns_root.route('/')
+class ApiRoot(Resource):
+    def get(self):
+        """Root endpoint with service information"""
+        return {
+            "name": "MediQ OCR Engine Service",
+            "version": "4.0.1", 
+            "status": "running",
+            "yolo_loaded": detector is not None,
+            "port": CFG["server"]["port"],
+            "languages": CFG["ocr"]["langs"],
+            "endpoints": {
+                "health": "/health/health",
+                "legacy_health": "/healthz", 
+                "docs": "/docs",
+                "ocr_scan": "/ocr/scan-ocr",
+                "legacy_ocr": "/ocr"
+            }
+        }
+
 @ns_health.route('/')
 class HealthRoot(Resource):
     def get(self):
@@ -255,10 +279,45 @@ class OCRProcess(Resource):
 
         return {"error": False, "message": "Proses OCR Berhasil", "result": result}
 
+# Add root endpoint to Flask-RESTX namespace
+@ns_health.route('/status')
+class ServiceStatus(Resource):
+    def get(self):
+        """Service status information"""
+        return {
+            "name": "MediQ OCR Engine Service",
+            "version": "4.0.1", 
+            "status": "running",
+            "yolo_loaded": detector is not None,
+            "port": CFG["server"]["port"],
+            "languages": CFG["ocr"]["langs"],
+            "endpoints": {
+                "health": "/health/health",
+                "legacy_health": "/healthz", 
+                "docs": "/docs",
+                "ocr_scan": "/ocr/scan-ocr",
+                "legacy_ocr": "/ocr"
+            }
+        }
+
 # Legacy endpoints for backward compatibility
 @app.route("/")
 def index():
-    return jsonify({"name":"MediQ OCR Engine Service","version":"4.0.1","yolo_loaded": detector is not None})
+    return jsonify({
+        "name": "MediQ OCR Engine Service",
+        "version": "4.0.1", 
+        "status": "running",
+        "yolo_loaded": detector is not None,
+        "port": CFG["server"]["port"],
+        "languages": CFG["ocr"]["langs"],
+        "endpoints": {
+            "health": "/health/health",
+            "legacy_health": "/healthz", 
+            "docs": "/docs",
+            "ocr_scan": "/ocr/scan-ocr",
+            "legacy_ocr": "/ocr"
+        }
+    })
 
 @app.route("/healthz")  
 def healthz():
