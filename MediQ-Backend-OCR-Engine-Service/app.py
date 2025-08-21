@@ -37,7 +37,12 @@ app = Flask(__name__)
 detector = None
 try:
     if CFG["yolo"].get("use_type", True):
-        detector = DocDetector(CFG["yolo"]["weights"], CFG["yolo"]["imgsz"], CFG["yolo"]["conf"])
+        detector = DocDetector(
+            CFG["yolo"]["weights"],
+            CFG["yolo"]["imgsz"],
+            CFG["yolo"]["conf"],
+            device=CFG["yolo"].get("device", "0"),
+        )
 except Exception as e:
     print("[WARN] YOLO init failed:", e); detector=None
 
