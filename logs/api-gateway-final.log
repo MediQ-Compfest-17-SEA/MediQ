@@ -1,0 +1,48 @@
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mClientsModule dependencies initialized[39m[38;5;3m +10ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mGatewayModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOcrModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mInstitutionsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOcrEngineModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/health}:[39m[38;5;3m +14ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/health, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mGatewayController {/}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login/admin, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login/user, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/refresh, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/logout, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/check-nik/:nik, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/profile, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id/role, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOcrController {/ocr}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/ocr/upload, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/ocr/confirm, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mInstitutionsController {/institutions}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/institutions, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/institutions, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/institutions/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/institutions/:id/services, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/institutions/:id/services, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/institutions/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/institutions/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOcrEngineController {/ocr-engine}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/ocr-engine/process, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/ocr-engine/scan-ocr, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/ocr-engine/validate-result, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 1674025  - [39m08/22/2025, 12:07:34 AM [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +1ms[39m
+🚀 MediQ API Gateway running on http://localhost:8601
+📚 API Documentation: http://localhost:8601/api/docs
+💚 Health Check: http://localhost:8601/health

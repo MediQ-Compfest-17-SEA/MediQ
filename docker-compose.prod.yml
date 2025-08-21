@@ -1,0 +1,229 @@
+version: '3.8'
+
+networks:
+  mediq-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:
+
+services:
+  # Infrastructure Services
+  mysql:
+    image: mysql:8.0
+    container_name: mediq-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "!@M@yIB3eF0rG1V2n!"
+      MYSQL_DATABASE: mediq_db
+      MYSQL_USER: mediq
+      MYSQL_PASSWORD: mediq123
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - mediq-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: mediq-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - mediq-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: mediq-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: mediq
+      RABBITMQ_DEFAULT_PASS: mediq123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mediq-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Microservices
+  api-gateway:
+    build:
+      context: ./MediQ-Backend-API-Gateway
+      dockerfile: Dockerfile
+    container_name: mediq-api-gateway
+    restart: unless-stopped
+    ports:
+      - "8601:8601"
+    environment:
+      - PORT=8601
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://mediq:mediq123@mysql:3306/mediq_db
+      - RABBITMQ_URL=amqp://mediq:mediq123@rabbitmq:5672
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-in-production
+    networks:
+      - mediq-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8601/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  user-service:
+    build:
+      context: ./MediQ-Backend-User-Service
+      dockerfile: Dockerfile
+    container_name: mediq-user-service
+    restart: unless-stopped
+    ports:
+      - "8602:8602"
+    environment:
+      - PORT=8602
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://mediq:mediq123@mysql:3306/mediq_db
+      - RABBITMQ_URL=amqp://mediq:mediq123@rabbitmq:5672
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-in-production
+    networks:
+      - mediq-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8602/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ocr-service:
+    build:
+      context: ./MediQ-Backend-OCR-Service
+      dockerfile: Dockerfile
+    container_name: mediq-ocr-service
+    restart: unless-stopped
+    ports:
+      - "8603:8603"
+    environment:
+      - PORT=8603
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://mediq:mediq123@mysql:3306/mediq_db
+      - RABBITMQ_URL=amqp://mediq:mediq123@rabbitmq:5672
+      - OCR_ENGINE_URL=http://ocr-engine-service:8604
+    networks:
+      - mediq-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8603/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ocr-engine-service:
+    build:
+      context: ./MediQ-Backend-OCR-Engine-Service
+      dockerfile: Dockerfile
+    container_name: mediq-ocr-engine-service
+    restart: unless-stopped
+    ports:
+      - "8604:8604"
+    environment:
+      - PORT=8604
+      - PYTHONPATH=/app
+      - MODEL_PATH=/app/models
+    networks:
+      - mediq-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8604/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  patient-queue-service:
+    build:
+      context: ./MediQ-Backend-Patient-Queue-Service
+      dockerfile: Dockerfile
+    container_name: mediq-patient-queue-service
+    restart: unless-stopped
+    ports:
+      - "8605:8605"
+    environment:
+      - PORT=8605
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://mediq:mediq123@mysql:3306/mediq_db
+      - RABBITMQ_URL=amqp://mediq:mediq123@rabbitmq:5672
+      - REDIS_URL=redis://redis:6379
+    networks:
+      - mediq-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8605/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  institution-service:
+    build:
+      context: ./MediQ-Backend-Institution-Service
+      dockerfile: Dockerfile
+    container_name: mediq-institution-service
+    restart: unless-stopped
+    ports:
+      - "8606:8606"
+    environment:
+      - PORT=8606
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://mediq:mediq123@mysql:3306/mediq_db
+      - RABBITMQ_URL=amqp://mediq:mediq123@rabbitmq:5672
+    networks:
+      - mediq-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8606/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5

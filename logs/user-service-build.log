@@ -1,0 +1,31 @@
+
+> MediQ-Backend-User-Service@0.0.1 build
+> nest build
+
+[96msrc/auth/auth.service.ts[0m:[93m24[0m:[93m45[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.
+
+[7m24[0m     if (user && (await bcrypt.compare(pass, user.password))) {
+[7m  [0m [91m                                            ~~~~~~~~~~~~~[0m
+[96msrc/auth/auth.service.ts[0m:[93m37[0m:[93m45[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.
+
+[7m37[0m     if (user && (await bcrypt.compare(pass, user.password)) && user.role !== Role.PASIEN) {
+[7m  [0m [91m                                            ~~~~~~~~~~~~~[0m
+[96msrc/user/user.service.ts[0m:[93m24[0m:[93m46[0m - [91merror[0m[90m TS2345: [0mArgument of type 'string | undefined' is not assignable to parameter of type 'string | Buffer<ArrayBufferLike>'.
+  Type 'undefined' is not assignable to type 'string | Buffer<ArrayBufferLike>'.
+
+[7m24[0m     const hashedPassword = await bcrypt.hash(password, 10);
+[7m  [0m [91m                                             ~~~~~~~~[0m
+[96msrc/user/user.service.ts[0m:[93m30[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'Promise<string> & void' is not assignable to type 'string | null | undefined'.
+
+[7m30[0m         password: hashedPassword,
+[7m  [0m [91m        ~~~~~~~~[0m
+
+  [96mnode_modules/.prisma/client/index.d.ts[0m:[93m2206[0m:[93m5[0m
+    [7m2206[0m     password?: string | null
+    [7m    [0m [96m    ~~~~~~~~[0m
+    The expected type comes from property 'password' which is declared here on type '(Without<UserCreateInput, UserUncheckedCreateInput> & UserUncheckedCreateInput) | (Without<...> & UserCreateInput)'
+
+Found 4 error(s).
+

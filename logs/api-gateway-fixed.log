@@ -1,11 +1,7 @@
-
-> mediq-backend-api-gateway@0.0.1 start:prod
-> node dist/main
-
-[32m[Nest] 1565814  - [39m08/21/2025, 11:11:40 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
-[32m[Nest] 1565814  - [39m08/21/2025, 11:11:40 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mClientsModule dependencies initialized[39m[38;5;3m +8ms[39m
-[32m[Nest] 1565814  - [39m08/21/2025, 11:11:40 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
-[31m[Nest] 1565814  - [39m08/21/2025, 11:11:40 PM [31m  ERROR[39m [38;5;3m[ExceptionHandler] [39mUnknownDependenciesException [Error]: Nest can't resolve dependencies of the GatewayService (?, OCR_SERVICE, INSTITUTION_SERVICE, OCR_ENGINE_SERVICE). Please make sure that the argument "USER_SERVICE" at index [0] is available in the GatewayModule context.
+[32m[Nest] 1584078  - [39m08/21/2025, 11:20:56 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 1584078  - [39m08/21/2025, 11:20:56 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mClientsModule dependencies initialized[39m[38;5;3m +9ms[39m
+[32m[Nest] 1584078  - [39m08/21/2025, 11:20:56 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[31m[Nest] 1584078  - [39m08/21/2025, 11:20:56 PM [31m  ERROR[39m [38;5;3m[ExceptionHandler] [39mUnknownDependenciesException [Error]: Nest can't resolve dependencies of the GatewayService (?, OCR_SERVICE, INSTITUTION_SERVICE, OCR_ENGINE_SERVICE). Please make sure that the argument "USER_SERVICE" at index [0] is available in the GatewayModule context.
 
 Potential solutions:
 - Is GatewayModule a valid NestJS module?
@@ -37,9 +33,9 @@ Potential solutions:
     name: [32m'USER_SERVICE'[39m
   },
   metadata: {
-    id: [32m'786558b2156592dcccf4c'[39m
+    id: [32m'25824c8aef4ee01177026'[39m
   },
   moduleRef: {
-    id: [32m'093a09359b18ebe70cfe9'[39m
+    id: [32m'dc855c0b6a193710cd3e1'[39m
   }
 }

@@ -1,0 +1,149 @@
+version: '3.8'
+
+networks:
+  mediq-network:
+    driver: bridge
+
+services:
+  # Microservices only (using existing infrastructure)
+  api-gateway:
+    build:
+      context: ./MediQ-Backend-API-Gateway
+      dockerfile: Dockerfile
+    container_name: mediq-api-gateway-docker
+    restart: unless-stopped
+    ports:
+      - "8701:8601"  # Using different external port to avoid conflict
+    environment:
+      - PORT=8601
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://root:!@M@yIB3eF0rG1V2n!@host.docker.internal:3306/mediq_db
+      - RABBITMQ_URL=amqp://guest:guest@host.docker.internal:5672
+      - REDIS_URL=redis://host.docker.internal:6379
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-in-production
+    networks:
+      - mediq-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8601/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  user-service:
+    build:
+      context: ./MediQ-Backend-User-Service
+      dockerfile: Dockerfile
+    container_name: mediq-user-service-docker
+    restart: unless-stopped
+    ports:
+      - "8702:8602"  # Using different external port
+    environment:
+      - PORT=8602
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://root:!@M@yIB3eF0rG1V2n!@host.docker.internal:3306/mediq_db
+      - RABBITMQ_URL=amqp://guest:guest@host.docker.internal:5672
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-in-production
+    networks:
+      - mediq-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8602/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ocr-service:
+    build:
+      context: ./MediQ-Backend-OCR-Service
+      dockerfile: Dockerfile
+    container_name: mediq-ocr-service-docker
+    restart: unless-stopped
+    ports:
+      - "8703:8603"  # Using different external port
+    environment:
+      - PORT=8603
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://root:!@M@yIB3eF0rG1V2n!@host.docker.internal:3306/mediq_db
+      - RABBITMQ_URL=amqp://guest:guest@host.docker.internal:5672
+      - OCR_ENGINE_URL=http://host.docker.internal:8604
+    networks:
+      - mediq-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8603/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  ocr-engine-service:
+    build:
+      context: ./MediQ-Backend-OCR-Engine-Service
+      dockerfile: Dockerfile
+    container_name: mediq-ocr-engine-service-docker
+    restart: unless-stopped
+    ports:
+      - "8704:8604"  # Using different external port
+    environment:
+      - PORT=8604
+      - PYTHONPATH=/app
+      - MODEL_PATH=/app/models
+    networks:
+      - mediq-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8604/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  patient-queue-service:
+    build:
+      context: ./MediQ-Backend-Patient-Queue-Service
+      dockerfile: Dockerfile
+    container_name: mediq-patient-queue-service-docker
+    restart: unless-stopped
+    ports:
+      - "8705:8605"  # Using different external port
+    environment:
+      - PORT=8605
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://root:!@M@yIB3eF0rG1V2n!@host.docker.internal:3306/mediq_db
+      - RABBITMQ_URL=amqp://guest:guest@host.docker.internal:5672
+      - REDIS_URL=redis://host.docker.internal:6379
+    networks:
+      - mediq-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8605/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  institution-service:
+    build:
+      context: ./MediQ-Backend-Institution-Service
+      dockerfile: Dockerfile
+    container_name: mediq-institution-service-docker
+    restart: unless-stopped
+    ports:
+      - "8706:8606"  # Using different external port
+    environment:
+      - PORT=8606
+      - NODE_ENV=production
+      - DATABASE_URL=mysql://root:!@M@yIB3eF0rG1V2n!@host.docker.internal:3306/mediq_db
+      - RABBITMQ_URL=amqp://guest:guest@host.docker.internal:5672
+    networks:
+      - mediq-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8606/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
