@@ -1,0 +1,27 @@
+[submodule "MediQ-Backend-API-Gateway"]
+	path = MediQ-Backend-API-Gateway
+	url = https://github.com/MediQ-Compfest-17-SEA/MediQ-Backend-API-Gateway
+
+[submodule "MediQ-Backend-User-Service"]
+	path = MediQ-Backend-User-Service
+	url = https://github.com/MediQ-Compfest-17-SEA/MediQ-Backend-User-Service
+
+[submodule "MediQ-Backend-OCR-Service"]
+	path = MediQ-Backend-OCR-Service
+	url = https://github.com/MediQ-Compfest-17-SEA/MediQ-Backend-OCR-Service
+
+[submodule "MediQ-Backend-OCR-Engine-Service"]
+	path = MediQ-Backend-OCR-Engine-Service
+	url = https://github.com/MediQ-Compfest-17-SEA/MediQ-Backend-OCR-Engine-Service
+
+[submodule "MediQ-Backend-Patient-Queue-Service"]
+	path = MediQ-Backend-Patient-Queue-Service
+	url = https://github.com/MediQ-Compfest-17-SEA/MediQ-Backend-Patient-Queue-Service
+
+[submodule "MediQ-Backend-Institution-Service"]
+	path = MediQ-Backend-Institution-Service
+	url = https://github.com/MediQ-Compfest-17-SEA/MediQ-Backend-Institution-Service
+
+[submodule "MediQ-Frontend-Service"]
+	path = MediQ-Frontend-Service
+	url = https://github.com/MediQ-Compfest-17-SEA/MediQ-Frontend-Service
